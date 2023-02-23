@@ -1,22 +1,21 @@
-CREATE DATABASE IF NOT EXISTS `your_space`;
-USE `your_space`;
-DROP TABLE IF EXISTS `space`;
-CREATE TABLE `space`(
-`space_id` int(10) NOT NULL auto_increment,
-`adresss` varchar(50) NOT NULL,
-`district` varchar(20) NOT NULL,
-`rating` float NOT NULL,
-`images` varchar (250),
-`room_numbers` long NOT NULL,
-`description` varchar(100) 	NOT NULL,
-`name` varchar(20) NOT NULL,
-`contact_No` varchar(13) NOT NULL,
-`min_price` double NOT NULL,
-`max_price` double NOT NULL,
-`min_opening_hours` varchar(10) NOT NULL,
-`max_opening_hours` varchar(10) NOT NULL,
-`offers_drinks` bool NOT NULL,
-`owner` varchar(25) NOT NULL,
-`outdoors` bool NOT NULL,
-primary key(`spaceid`)
-)
+ use your_space;
+ drop table if exists space;
+  create table space (
+       space_id integer not null auto_increment,
+        address varchar(255),
+        contact_no varchar(255),
+        description varchar(255),
+        district varchar(255),
+        offers_drinks bit,
+        max_opening_hours varchar(255),
+        images varchar(255),
+        max_price double precision,
+        min_price double precision,
+        name varchar(255),
+        outdoors bit,
+        owner varchar(255),
+        rating double precision,
+        room_numbers integer,
+        min_opening_hours varchar(255),
+        primary key (space_id)
+    ) engine=InnoDB
