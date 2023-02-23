@@ -1,6 +1,7 @@
 package com.gradproject.yourspace.entity;
 
 import javax.persistence.*;
+import com.gradproject.yourspace.entity.Space;
 
 @Entity
 @Table(name = "room")
@@ -28,22 +29,23 @@ public class Room {
 	@Column(name = "image")
 	private String image;
 
-//	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
-//	@JoinColumn(name = "spaceId")
-//	private Space space;
+	@ManyToOne(cascade = { CascadeType.ALL})
+	@JoinColumn(name = "space_Id")
+	private Space space;
 
 	public Room() {
 		super();
 	}
 
-	public Room(int number, String name, String activity, String type, float price, String image) {
-		super();
+
+	public Room(int number, String name, String activity, String type, float price, String image, Space space) {
 		this.number = number;
 		this.name = name;
 		this.activity = activity;
 		this.type = type;
 		this.price = price;
 		this.image = image;
+		this.space = space;
 	}
 
 	public int getRoomId() {
@@ -101,13 +103,13 @@ public class Room {
 	public void setImage(String image) {
 		this.image = image;
 	}
-//	public Space getSpace() {
-//		return space;
-//	}
-//
-//	public void setSpace(Space space) {
-//		this.space = space;
-//	}
+	public Space getSpace() {
+		return space;
+}
+
+   public void setSpace(Space space) {
+ 	this.space = space;
+	}
 
 //	@Override
 //	public String toString() {
