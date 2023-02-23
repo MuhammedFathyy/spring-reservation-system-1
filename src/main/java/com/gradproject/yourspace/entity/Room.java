@@ -32,11 +32,15 @@ public class Room {
 	@JoinColumn(name = "spaceId")
     private Space space;
 
+
 	public Room() {
 		super();
 	}
 
+
+
 	public Room(int number, String name, String activity, String type, float price, String image, Space space) {
+
 		this.number = number;
 		this.name = name;
 		this.activity = activity;
@@ -101,6 +105,7 @@ public class Room {
 	public void setImage(String image) {
 		this.image = image;
 	}
+
    public Space getSpace() {
 	return space;
 	}
@@ -108,6 +113,10 @@ public class Room {
 	public void setSpace(Space space) {
 		this.space = space;
 	}
+
+
+
+
 
 //	@Override
 //	public String toString() {
