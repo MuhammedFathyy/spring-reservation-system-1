@@ -18,28 +18,25 @@ public class Room {
 
 	@Column(name = "activity")
 	private String activity;
-	
+
 	@Column(name = "type")
 	private String type;
-	
+
 	@Column(name = "price")
 	private float price;
-	
+
 	@Column(name = "image")
 	private String image;
 
-	@ManyToOne(cascade = { CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH })
-	@JoinColumn(name = "spaceId")
-    private Space space;
-
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinColumn(name = "space_id")
+	private Space space;
 
 	public Room() {
 		super();
 	}
 
-
-
-	public Room(int number, String name, String activity, String type, float price, String image, Space space) {
+	public Room(int number, String name, String activity, String type, float price, String image) {
 
 		this.number = number;
 		this.name = name;
@@ -47,7 +44,6 @@ public class Room {
 		this.type = type;
 		this.price = price;
 		this.image = image;
-		this.space = space;
 	}
 
 	public int getRoomId() {
@@ -106,24 +102,20 @@ public class Room {
 		this.image = image;
 	}
 
-   public Space getSpace() {
-	return space;
+	public Space getSpace() {
+		return space;
 	}
 
 	public void setSpace(Space space) {
 		this.space = space;
 	}
 
-
-
-
-
-//	@Override
-//	public String toString() {
-//		return "Room [roomId=" + roomId + ", number=" + number + ", name=" + name + ", activity=" + activity + ", type="
-//				+ type + ", price=" + price + ", image=" + image + "]";
-//	}
+	@Override
+	public String toString() {
+		return "Room [roomId=" + roomId + ", number=" + number + ", name=" + name + ", activity=" + activity + ", type="
+				+ type + ", price=" + price + ", image=" + image + ", space=" + space + "]";
+	}
+	
 	
 
-	
 }
