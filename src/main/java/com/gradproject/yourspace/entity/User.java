@@ -2,9 +2,10 @@ package com.gradproject.yourspace.entity;
 
 import com.sun.istack.NotNull;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "User")
+@Table(name = "user")
 public class User {
         @Id
         @GeneratedValue(strategy =  GenerationType.IDENTITY)
@@ -42,13 +43,19 @@ public class User {
         @Column(name = "profile_picture")
         private String picture;
 
-        public User() {
-        }
+        @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
+        private List<Request> requests;
 
-        public User(String email, String firstName, String lastName,
-                    String password, String phoneNo, String address,
-                    String birthDate, String bio, int points,
-                    String picture) {
+        @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
+        private List<Booking> bookings;
+
+
+    public User() {
+    }
+
+    public User(String email, String firstName, String lastName, String password,
+                String phoneNo, String address, String birthDate, String bio,
+                int points, String picture, List<Request> requests, List<Booking> bookings) {
             this.email = email;
             this.firstName = firstName;
             this.lastName = lastName;
@@ -59,9 +66,11 @@ public class User {
             this.bio = bio;
             this.points = points;
             this.picture = picture;
+            this.requests = requests;
+            this.bookings = bookings;
         }
 
-        public int getUserId() {
+    public int getUserId() {
             return UserId;
         }
 
@@ -149,19 +158,38 @@ public class User {
             this.picture = picture;
         }
 
+        public List<Request> getRequests() {
+            return requests;
+        }
+
+        public void setRequests(List<Request> requests) {
+            this.requests = requests;
+        }
+
+        public List<Booking> getBookings() {
+            return bookings;
+        }
+
+        public void setBookings(List<Booking> bookings) {
+            this.bookings = bookings;
+        }
+
         @Override
         public String toString() {
             return "User{" +
                     "UserId=" + UserId +
-                    ", email=" + email +
-                    ", firstName=" + firstName +
-                    ", lastName=" + lastName +
-                    ", password=" + password +
-                    ", phoneNo=" + phoneNo +
-                    ", address=" + address +
-                    ", birthDate=" + birthDate +
-                    ", bio=" + bio +
+                    ", email='" + email + '\'' +
+                    ", firstName='" + firstName + '\'' +
+                    ", lastName='" + lastName + '\'' +
+                    ", password='" + password + '\'' +
+                    ", phoneNo='" + phoneNo + '\'' +
+                    ", address='" + address + '\'' +
+                    ", birthDate='" + birthDate + '\'' +
+                    ", bio='" + bio + '\'' +
                     ", points=" + points +
+                    ", picture='" + picture + '\'' +
+                    ", requests=" + requests +
+                    ", bookings=" + bookings +
                     '}';
         }
 }
