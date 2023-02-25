@@ -24,8 +24,9 @@ public class Request {
     @Column(name = "no_of_rooms")
     private int noOfRooms;
 
-    @Column(name = "user_id")
+
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Request() {
