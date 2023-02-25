@@ -2,6 +2,8 @@ package com.gradproject.yourspace.entity;
 
 import com.sun.istack.NotNull;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "User")
@@ -41,6 +43,9 @@ public class User {
 
         @Column(name = "profile_picture")
         private String picture;
+
+        @OneToMany(mappedBy = "user", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+        private List<Request> requests;
 
         public User() {
         }
@@ -149,19 +154,36 @@ public class User {
             this.picture = picture;
         }
 
-        @Override
-        public String toString() {
-            return "User{" +
-                    "UserId=" + UserId +
-                    ", email=" + email +
-                    ", firstName=" + firstName +
-                    ", lastName=" + lastName +
-                    ", password=" + password +
-                    ", phoneNo=" + phoneNo +
-                    ", address=" + address +
-                    ", birthDate=" + birthDate +
-                    ", bio=" + bio +
-                    ", points=" + points +
-                    '}';
-        }
+    public List<Request> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(List<Request> requests) {
+        this.requests = requests;
+    }
+
+    /* Convience Method */
+    public void addRequest(Request request) {
+            if (this.requests == null) this.requests = new ArrayList<>();
+            requests.add(request);
+            request.setUser(this);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "UserId=" + UserId +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", password='" + password + '\'' +
+                ", phoneNo='" + phoneNo + '\'' +
+                ", address='" + address + '\'' +
+                ", birthDate='" + birthDate + '\'' +
+                ", bio='" + bio + '\'' +
+                ", points=" + points +
+                ", picture='" + picture + '\'' +
+                ", requests=" + requests +
+                '}';
+    }
 }
