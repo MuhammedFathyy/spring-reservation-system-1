@@ -27,7 +27,9 @@ public class SpaceDaoImpl implements  SpaceDao{
     @Override
     public void deleteById(int id) {
         Session session = entityManager.unwrap(Session.class);
-        Query query=session.createQuery("delete from"+ Space.class.getName()+"where spaceId:=id");
+        Query query=session.createQuery("delete from "+ Space.class.getName()+" where spaceId = :id");
+        query.setParameter("id",id);
+        query.executeUpdate();
 
     }
 
@@ -40,7 +42,7 @@ public class SpaceDaoImpl implements  SpaceDao{
     @Override
     public List<Space> getSpaces() {
         Session session = entityManager.unwrap(Session.class);
-        Query<Space> query= session.createQuery("from"+Space.class.getName());
+        Query<Space> query= session.createQuery("from "+Space.class.getName() +" order by name",Space.class);
         return query.getResultList();
     }
 }
