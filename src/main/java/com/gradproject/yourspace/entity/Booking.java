@@ -1,6 +1,7 @@
 package com.gradproject.yourspace.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -15,21 +16,21 @@ public class Booking {
     @Column(name = "book_id")
     private int id;
 
-    @Column(name = "start_time")
+    @Column(name = "start_time", columnDefinition = "TIME")
     @NotNull
 //    @Temporal(TemporalType.TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private Time startTime;
 
-    @Column(name = "end_time")
+    @Column(name = "end_time", columnDefinition = "TIME")
     @NotNull
 //    @Temporal(TemporalType.TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private Time endTime;
 
-    @Temporal(TemporalType.DATE)
+//    @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
-    @Column(name = "date")
+    @Column(name = "date", columnDefinition = "DATE")
     @NotNull
     private Date date;
 
