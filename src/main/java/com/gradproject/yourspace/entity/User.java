@@ -2,8 +2,6 @@ package com.gradproject.yourspace.entity;
 
 import com.sun.istack.NotNull;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "User")
@@ -44,36 +42,26 @@ public class User {
         @Column(name = "profile_picture")
         private String picture;
 
-        @OneToMany(mappedBy = "user", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-        private List<Request> requests;
-
-        @OneToMany(mappedBy = "user", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-        private List<Booking> bookings;
-
         public User() {
         }
 
-    public User(int userId, String email, String firstName,
-                String lastName, String password, String phoneNo,
-                String address, String birthDate, String bio,
-                int points, String picture, List<Request> requests,
-                List<Booking> bookings) {
-        UserId = userId;
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.phoneNo = phoneNo;
-        this.address = address;
-        this.birthDate = birthDate;
-        this.bio = bio;
-        this.points = points;
-        this.picture = picture;
-        this.requests = requests;
-        this.bookings = bookings;
-    }
+        public User(String email, String firstName, String lastName,
+                    String password, String phoneNo, String address,
+                    String birthDate, String bio, int points,
+                    String picture) {
+            this.email = email;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.password = password;
+            this.phoneNo = phoneNo;
+            this.address = address;
+            this.birthDate = birthDate;
+            this.bio = bio;
+            this.points = points;
+            this.picture = picture;
+        }
 
-    public int getUserId() {
+        public int getUserId() {
             return UserId;
         }
 
@@ -161,50 +149,19 @@ public class User {
             this.picture = picture;
         }
 
-    public List<Request> getRequests() {
-        return requests;
-    }
-
-    public void setRequests(List<Request> requests) {
-        this.requests = requests;
-    }
-
-    public List<Booking> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(List<Booking> bookings) {
-        this.bookings = bookings;
-    }
-
-    /* Convience Method */
-    public void addRequest(Request request) {
-        if (this.requests == null) this.requests = new ArrayList<>();
-        requests.add(request);
-        request.setUser(this);
-    }
-
-    public void addBooking(Booking booking) {
-        if (bookings == null) bookings = new ArrayList<>();
-        bookings.add(booking);
-        booking.setUser(this);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "UserId=" + UserId +
-                ", email='" + email + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", password='" + password + '\'' +
-                ", phoneNo='" + phoneNo + '\'' +
-                ", address='" + address + '\'' +
-                ", birthDate='" + birthDate + '\'' +
-                ", bio='" + bio + '\'' +
-                ", points=" + points +
-                ", picture='" + picture + '\'' +
-                ", requests=" + requests +
-                '}';
-    }
+        @Override
+        public String toString() {
+            return "User{" +
+                    "UserId=" + UserId +
+                    ", email=" + email +
+                    ", firstName=" + firstName +
+                    ", lastName=" + lastName +
+                    ", password=" + password +
+                    ", phoneNo=" + phoneNo +
+                    ", address=" + address +
+                    ", birthDate=" + birthDate +
+                    ", bio=" + bio +
+                    ", points=" + points +
+                    '}';
+        }
 }
