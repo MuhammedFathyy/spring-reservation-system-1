@@ -22,7 +22,7 @@ public class UserDAOImpl implements UsersDAO {
     public List<User> getUsers()
     {
         Session session = entityManager.unwrap(Session.class);
-        Query<User> query = session.createQuery("from" + User.class.getName() + "order by UserId");
+        Query<User> query = session.createQuery("from " + User.class.getName() + " order by userId");
         List<User> users = query.getResultList();
         return users;
     }
@@ -42,7 +42,7 @@ public class UserDAOImpl implements UsersDAO {
     @Override
     public void deleteUser(int id) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createQuery("delete from " + User.class.getName() + "where UserID = :id");
+        Query query = session.createQuery("delete from " + User.class.getName() + " where userId = :id");
         query.setParameter("id" , id);
         query.executeUpdate();
     }

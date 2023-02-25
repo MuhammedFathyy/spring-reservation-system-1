@@ -10,8 +10,8 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "UserID")
-    private int UserId;
+    @Column(name = "user_id")
+    private int userId;
 
     @Column(name = "email")
     @NotNull
@@ -27,7 +27,7 @@ public class User {
     private String password;
 
     @Column(name = "mobile_no")
-    private String phoneNo;
+    private String mobileNo;
 
     @Column(name = "address")
     private String address;
@@ -61,7 +61,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.phoneNo = phoneNo;
+        this.mobileNo = phoneNo;
         this.address = address;
         this.birthDate = birthDate;
         this.bio = bio;
@@ -72,11 +72,11 @@ public class User {
     }
 
     public int getUserId() {
-        return UserId;
+        return userId;
     }
 
     public void setUserId(int userId) {
-        UserId = userId;
+        userId = userId;
     }
 
     public String getEmail() {
@@ -111,12 +111,12 @@ public class User {
         this.password = password;
     }
 
-    public String getPhoneNo() {
-        return phoneNo;
+    public String getMobileNo() {
+        return mobileNo;
     }
 
-    public void setPhoneNo(String phoneNo) {
-        this.phoneNo = phoneNo;
+    public void setMobileNo(String phoneNo) {
+        this.mobileNo = phoneNo;
     }
 
     public String getAddress() {
@@ -178,12 +178,12 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "UserId=" + UserId +
+                "UserId=" + userId +
                 ", email='" + email + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
-                ", phoneNo='" + phoneNo + '\'' +
+                ", phoneNo='" + mobileNo + '\'' +
                 ", address='" + address + '\'' +
                 ", birthDate='" + birthDate + '\'' +
                 ", bio='" + bio + '\'' +
