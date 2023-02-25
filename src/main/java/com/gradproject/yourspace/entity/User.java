@@ -47,26 +47,33 @@ public class User {
         @OneToMany(mappedBy = "user", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
         private List<Request> requests;
 
+        @OneToMany(mappedBy = "user", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+        private List<Booking> bookings;
+
         public User() {
         }
 
-        public User(String email, String firstName, String lastName,
-                    String password, String phoneNo, String address,
-                    String birthDate, String bio, int points,
-                    String picture) {
-            this.email = email;
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.password = password;
-            this.phoneNo = phoneNo;
-            this.address = address;
-            this.birthDate = birthDate;
-            this.bio = bio;
-            this.points = points;
-            this.picture = picture;
-        }
+    public User(int userId, String email, String firstName,
+                String lastName, String password, String phoneNo,
+                String address, String birthDate, String bio,
+                int points, String picture, List<Request> requests,
+                List<Booking> bookings) {
+        UserId = userId;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.phoneNo = phoneNo;
+        this.address = address;
+        this.birthDate = birthDate;
+        this.bio = bio;
+        this.points = points;
+        this.picture = picture;
+        this.requests = requests;
+        this.bookings = bookings;
+    }
 
-        public int getUserId() {
+    public int getUserId() {
             return UserId;
         }
 
@@ -162,11 +169,25 @@ public class User {
         this.requests = requests;
     }
 
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
     /* Convience Method */
     public void addRequest(Request request) {
-            if (this.requests == null) this.requests = new ArrayList<>();
-            requests.add(request);
-            request.setUser(this);
+        if (this.requests == null) this.requests = new ArrayList<>();
+        requests.add(request);
+        request.setUser(this);
+    }
+
+    public void addBooking(Booking booking) {
+        if (bookings == null) bookings = new ArrayList<>();
+        bookings.add(booking);
+        booking.setUser(this);
     }
 
     @Override
