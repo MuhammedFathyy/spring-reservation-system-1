@@ -34,19 +34,19 @@ public class Booking {
     @NotNull
     private Date date;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "user_id")
-    private User user;
+//    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+//    @JoinColumn(name = "user_id")
+//    private User user;
 
     public Booking() {
     }
 
-    public Booking(int id, Time startTime, Time endTime, Date date, User user) {
+    public Booking(int id, Time startTime, Time endTime, Date date) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
         this.date = date;
-        this.user = user;
+        //this.user = user;
     }
 
     public int getId() {
@@ -81,13 +81,13 @@ public class Booking {
         this.date = date;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     @Override
     public String toString() {
@@ -96,7 +96,7 @@ public class Booking {
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", date=" + date +
-                ", user=" + user +
+//                ", user=" + user +
                 '}';
     }
 }

@@ -44,10 +44,12 @@ public class User {
         @Column(name = "profile_picture")
         private String picture;
 
-        @OneToMany(mappedBy = "user", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+        @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+        @JoinColumn(name = "user_id", referencedColumnName = "UserID")
         private List<Request> requests;
 
-        @OneToMany(mappedBy = "user", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+        @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+        @JoinColumn(name = "user_id")
         private List<Booking> bookings;
 
         public User() {
@@ -181,13 +183,13 @@ public class User {
     public void addRequest(Request request) {
         if (this.requests == null) this.requests = new ArrayList<>();
         requests.add(request);
-        request.setUser(this);
+//        request.setUser(this);
     }
 
     public void addBooking(Booking booking) {
         if (bookings == null) bookings = new ArrayList<>();
         bookings.add(booking);
-        booking.setUser(this);
+//        booking.setUser(this);
     }
 
     @Override
