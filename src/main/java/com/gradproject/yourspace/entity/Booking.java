@@ -1,7 +1,6 @@
 package com.gradproject.yourspace.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -16,37 +15,28 @@ public class Booking {
     @Column(name = "book_id")
     private int id;
 
-    @Column(name = "start_time", columnDefinition = "TIME")
+    @Column(name = "start_time")
     @NotNull
-//    @Temporal(TemporalType.TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private Time startTime;
 
-    @Column(name = "end_time", columnDefinition = "TIME")
+    @Column(name = "end_time")
     @NotNull
-//    @Temporal(TemporalType.TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private Time endTime;
 
-//    @Temporal(TemporalType.DATE)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
-    @Column(name = "date", columnDefinition = "DATE")
-    @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    @Column(name = "date")
     private Date date;
-
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "user_id")
-    private User user;
 
     public Booking() {
     }
 
-    public Booking(int id, Time startTime, Time endTime, Date date, User user) {
+    public Booking(int id, Time startTime, Time endTime, Date date) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
         this.date = date;
-        this.user = user;
     }
 
     public int getId() {
@@ -81,13 +71,6 @@ public class Booking {
         this.date = date;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     @Override
     public String toString() {
@@ -96,7 +79,6 @@ public class Booking {
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", date=" + date +
-                ", user=" + user +
                 '}';
     }
 }

@@ -1,5 +1,7 @@
 package com.gradproject.yourspace.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -44,10 +46,12 @@ public class User {
     @Column(name = "profile_picture")
     private String picture;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
     private List<Request> requests;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
     private List<Booking> bookings;
 
 
@@ -197,13 +201,11 @@ public class User {
     public void addRequest(Request request) {
         if (this.requests == null) this.requests = new ArrayList<>();
         requests.add(request);
-        request.setUser(this);
     }
 
     public void addBooking(Booking booking) {
         if (bookings == null) bookings = new ArrayList<>();
         bookings.add(booking);
-        booking.setUser(this);
     }
 
 }
