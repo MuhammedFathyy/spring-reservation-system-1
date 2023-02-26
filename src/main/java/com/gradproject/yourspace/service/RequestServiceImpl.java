@@ -21,30 +21,24 @@ public class RequestServiceImpl implements RequestService{
     @Override
     @Transactional
     public Request findById(int requestId) {
-        Request request = requestDAO.findById(requestId);
-        if (request == null) throw new RuntimeException("No Request found with id " + requestId);
-        return request;
+        return requestDAO.findById(requestId);
     }
 
     @Override
     @Transactional
     public void saveRequest(Request request) {
-        request.setRequestId(0);
         requestDAO.saveRequest(request);
     }
 
     @Override
     @Transactional
     public void updateRequest(Request request) {
-        Request tempRequest = requestDAO.findById(request.getRequestId());
-        if (tempRequest != null) requestDAO.saveRequest(request);
+        requestDAO.saveRequest(request);
     }
 
     @Override
     @Transactional
     public void deleteRequest(int requestId) {
-        Request request = requestDAO.findById(requestId);
-        if (request == null) throw new RuntimeException("no request found with id " + requestId);
         requestDAO.deleteRequest(requestId);
     }
 }

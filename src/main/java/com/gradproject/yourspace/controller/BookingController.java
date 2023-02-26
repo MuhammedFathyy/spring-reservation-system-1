@@ -25,6 +25,7 @@ public class BookingController {
 
     @PostMapping("/bookings")
     public void saveBooking(@RequestBody Booking booking) {
+        booking.setId(0);
         bookingService.saveBooking(booking);
     }
 

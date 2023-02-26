@@ -27,7 +27,6 @@ public class BookingServiceImpl implements BookingService{
     @Override
     @Transactional
     public void saveBooking(Booking booking) {
-        booking.setId(0);
         bookingDAO.saveBooking(booking);
     }
 
