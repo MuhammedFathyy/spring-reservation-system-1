@@ -1,8 +1,11 @@
 package com.gradproject.yourspace.entity;
 
 import io.micrometer.core.annotation.Counted;
+import net.bytebuddy.utility.nullability.NeverNull;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity()
 @Table(name = "request")
@@ -16,12 +19,14 @@ public class Request {
     private String name;
 
     @Column(name = "status")
-    private String status;
+    @NotNull
+    private String status = "pending";
 
     @Column(name = "address")
     private String address;
 
     @Column(name = "no_of_rooms")
+    @NotNull
     private int noOfRooms;
 
 
