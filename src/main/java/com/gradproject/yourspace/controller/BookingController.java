@@ -31,8 +31,6 @@ public class BookingController {
 
     @PutMapping("/bookings")
     public void updateBooking(@RequestBody Booking booking) {
-        Booking temp = bookingService.findById(booking.getId());
-        if (temp == null) throw new RuntimeException("no booking with id " + booking.getId());
         bookingService.updateBooking(booking);
     }
 

@@ -33,8 +33,6 @@ public class RequestController {
 
     @PutMapping("/requests")
     public void updateRequest(@RequestBody Request request) {
-        if (requestService.findById(request.getRequestId()) == null)
-            throw new RuntimeException("no request found with id " + request.getRequestId());
         requestService.updateRequest(request);
     }
 
