@@ -85,7 +85,7 @@ public class User {
     }
 
     public void setUserId(int userId) {
-        userId = userId;
+        this.userId = userId;
     }
 
     public String getEmail() {
