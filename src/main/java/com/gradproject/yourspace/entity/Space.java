@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +19,11 @@ public class Space {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "space_id")
 	private int spaceId;
+
+	@NotNull
 	@Column(name = "address")
 	private String address;
+	@NotNull
 	@Column(name = "district")
 	private String district;
 	@Column(name = "rating")
@@ -30,6 +34,7 @@ public class Space {
 	private int roomNumbers;
 	@Column(name = "description")
 	private String description;
+	@NotNull
 	@Column(name = "name")
 	private String name;
 	@Column(name = "contact_No")
