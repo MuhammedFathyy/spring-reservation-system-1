@@ -1,16 +1,18 @@
 
 package com.gradproject.yourspace.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "space")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler", "rooms" })
+
 public class Space {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,9 +39,11 @@ public class Space {
 	@Column(name = "max_price")
 	private double maxPrice;
 	@Column(name = "min_opening_hours")
-	private String startTime;
+	@JsonFormat(shape=JsonFormat.Shape.STRING,pattern = "HH:mm:ss")
+	private Time startTime;
 	@Column(name = "max_opening_hours")
-	private String endTime;
+	@JsonFormat(shape=JsonFormat.Shape.STRING,pattern = "HH:mm:ss")
+	private Time endTime;
 	@Column(name = "offers_drinks")
 	private boolean drinks;
 	@Column(name = "owner")
@@ -47,16 +51,16 @@ public class Space {
 	@Column(name = "outdoors")
 	private boolean outdoors;
 
-	@OneToMany(mappedBy = "space", cascade = { CascadeType.ALL })
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+	@JoinColumn(name = "space_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Room> rooms;
 
 	public Space() {
 
 	}
 
-	public Space(String address, String district, double rating, String images, int roomNumbers, String description,
-			String name, String contactNumber, double minPrice, double maxPrice, String startTime, String endTime,
-			boolean drinks, String owner, boolean outdoors) {
+	public Space(String address, String district, double rating, String images, int roomNumbers, String description, String name, String contactNumber, double minPrice, double maxPrice, Time startTime, Time endTime, boolean drinks, String owner, boolean outdoors, List<Room> rooms) {
 		this.address = address;
 		this.district = district;
 		this.rating = rating;
@@ -72,6 +76,7 @@ public class Space {
 		this.drinks = drinks;
 		this.owner = owner;
 		this.outdoors = outdoors;
+		this.rooms = rooms;
 	}
 
 	public void setSpaceId(int spaceId) {
@@ -118,11 +123,11 @@ public class Space {
 		this.maxPrice = maxPrice;
 	}
 
-	public void setStartTime(String startTime) {
+	public void setStartTime(Time startTime) {
 		this.startTime = startTime;
 	}
 
-	public void setEndTime(String endTime) {
+	public void setEndTime(Time endTime) {
 		this.endTime = endTime;
 	}
 
@@ -178,17 +183,18 @@ public class Space {
 		return minPrice;
 	}
 
+	public Time getStartTime() {
+		return startTime;
+	}
+
+	public Time getEndTime() {
+		return endTime;
+	}
+
 	public double getMaxPrice() {
 		return maxPrice;
 	}
 
-	public String getStartTime() {
-		return startTime;
-	}
-
-	public String getEndTime() {
-		return endTime;
-	}
 
 	public boolean isDrinks() {
 		return drinks;

@@ -28,9 +28,6 @@ public class Room {
 	@Column(name = "image")
 	private String image;
 
-	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
-	@JoinColumn(name = "space_id")
-	private Space space;
 
 	public Room() {
 		super();
@@ -102,20 +99,17 @@ public class Room {
 		this.image = image;
 	}
 
-	public Space getSpace() {
-		return space;
-	}
-
-	public void setSpace(Space space) {
-		this.space = space;
-	}
 
 	@Override
 	public String toString() {
-		return "Room [roomId=" + roomId + ", number=" + number + ", name=" + name + ", activity=" + activity + ", type="
-				+ type + ", price=" + price + ", image=" + image + ", space=" + space + "]";
+		return "Room{" +
+				"roomId=" + roomId +
+				", number=" + number +
+				", name='" + name + '\'' +
+				", activity='" + activity + '\'' +
+				", type='" + type + '\'' +
+				", price=" + price +
+				", image='" + image + '\'' +
+				'}';
 	}
-	
-	
-
 }
