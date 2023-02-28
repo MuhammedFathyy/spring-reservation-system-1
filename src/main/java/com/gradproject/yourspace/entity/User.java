@@ -1,13 +1,14 @@
 package com.gradproject.yourspace.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -38,7 +39,8 @@ public class User {
     private String address;
 
     @Column(name = "birthdate")
-    private String birthDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    private Date birthDate;
 
     @Column(name = "bio")
     private String bio;
@@ -63,14 +65,12 @@ public class User {
     public User() {
     }
 
-    public User(String email, String firstName, String lastName, String password,
-                String phoneNo, String address, String birthDate, String bio,
-                int points, String picture, List<Request> requests, List<Booking> bookings) {
+    public User(String email, String firstName, String lastName, String password, String mobileNo, String address, Date birthDate, String bio, int points, String picture, List<Request> requests, List<Booking> bookings) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.mobileNo = phoneNo;
+        this.mobileNo = mobileNo;
         this.address = address;
         this.birthDate = birthDate;
         this.bio = bio;
@@ -136,11 +136,12 @@ public class User {
         this.address = address;
     }
 
-    public String getBirthDate() {
+
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 
