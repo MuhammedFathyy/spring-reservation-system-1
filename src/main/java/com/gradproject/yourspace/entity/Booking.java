@@ -1,9 +1,9 @@
 package com.gradproject.yourspace.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Time;
 import java.util.Date;
 

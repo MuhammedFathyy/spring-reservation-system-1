@@ -1,9 +1,5 @@
 package com.gradproject.yourspace.entity;
 
-import io.micrometer.core.annotation.Counted;
-import net.bytebuddy.utility.nullability.NeverNull;
-import org.springframework.boot.context.properties.bind.DefaultValue;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -30,11 +26,6 @@ public class Request {
     private int noOfRooms;
 
 
-
-//    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-////    @JoinColumn(name = "user_id")
-//    private User user;
-
     public Request() {
     }
 
@@ -44,7 +35,6 @@ public class Request {
         this.status = status;
         this.address = address;
         this.noOfRooms = noOfRooms;
-//        this.user = user;
     }
 
     public int getRequestId() {
@@ -87,14 +77,6 @@ public class Request {
         this.noOfRooms = noOfRooms;
     }
 
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
-
     @Override
     public String toString() {
         return "Request{" +
@@ -103,7 +85,6 @@ public class Request {
                 ", status='" + status + '\'' +
                 ", address='" + address + '\'' +
                 ", noOfRooms=" + noOfRooms +
-//                ", user=" + user +
                 '}';
     }
 }
