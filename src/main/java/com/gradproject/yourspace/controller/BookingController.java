@@ -55,9 +55,6 @@ public class BookingController {
         fields.forEach((key, value) -> {
             Field field = ReflectionUtils.findField(Booking.class, key);
             field.setAccessible(true);
-            System.out.println(field.getAnnotatedType());
-            System.out.println(value.getClass());
-
             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             boolean flag = true;
             try {
