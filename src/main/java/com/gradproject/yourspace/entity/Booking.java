@@ -27,6 +27,7 @@ public class Booking {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     @Column(name = "date")
+    @NotNull
     private Date date;
 
     public Booking() {

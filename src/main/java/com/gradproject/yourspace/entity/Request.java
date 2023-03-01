@@ -1,5 +1,6 @@
 package com.gradproject.yourspace.entity;
 
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -12,6 +13,7 @@ public class Request {
     private int requestId;
 
     @Column(name = "name")
+    @NotNull
     private String name;
 
     @Column(name = "status")
@@ -19,11 +21,14 @@ public class Request {
     private String status = "pending";
 
     @Column(name = "address")
+    @NotNull
     private String address;
 
     @Column(name = "no_of_rooms")
     @NotNull
     private int noOfRooms;
+
+
 
 
     public Request() {
@@ -76,6 +81,7 @@ public class Request {
     public void setNoOfRooms(int noOfRooms) {
         this.noOfRooms = noOfRooms;
     }
+
 
     @Override
     public String toString() {
