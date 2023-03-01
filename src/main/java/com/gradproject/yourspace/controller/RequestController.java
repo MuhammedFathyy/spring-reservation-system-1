@@ -3,8 +3,11 @@ package com.gradproject.yourspace.controller;
 import com.gradproject.yourspace.entity.Request;
 import com.gradproject.yourspace.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -42,4 +45,31 @@ public class RequestController {
             throw new RuntimeException("no request found with id " + requestId);
         requestService.deleteRequest(requestId);
     }
+
+    @PatchMapping("/requests/{id}")
+    public void updateRequestPartially(@PathVariable int id, @RequestBody HashMap<String, Object> fields) {
+        Request request = requestService.findById(id);
+        fields.forEach((key, value) -> {
+            Field field = ReflectionUtils.findField(Request.class, key);
+            field.setAccessible(true);
+            ReflectionUtils.setField(field, request, value);
+        });
+        requestService.updateRequest(request);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
