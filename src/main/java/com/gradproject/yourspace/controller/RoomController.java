@@ -2,6 +2,7 @@ package com.gradproject.yourspace.controller;
 
 import java.util.List;
 
+import com.gradproject.yourspace.entity.Booking;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,5 +55,11 @@ public class RoomController {
 	public String deleteRoom(@PathVariable int roomId) {
 		roomService.deleteRoom(roomId);
 		return "Successfully deleted";
+	}
+
+	@GetMapping("roomBookings/{roomId}")
+	public List<Booking> getBookings(@PathVariable int roomId) {
+		Room room = roomService.getRoom(roomId);
+		return room.getBookings();
 	}
 }
