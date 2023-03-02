@@ -1,6 +1,12 @@
 package com.gradproject.yourspace.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "room")
@@ -28,13 +34,17 @@ public class Room {
 	@Column(name = "image")
 	private String image;
 
+	@OneToMany(mappedBy = "room", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+			CascadeType.REFRESH})
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	private List<Booking> bookings;
 
 	public Room() {
 		super();
 	}
 
 	public Room(int number, String name, String activity, String type, float price, String image) {
-
 		this.number = number;
 		this.name = name;
 		this.activity = activity;
@@ -99,6 +109,18 @@ public class Room {
 		this.image = image;
 	}
 
+	public List<Booking> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(List<Booking> bookings) {
+		this.bookings = bookings;
+	}
+
+	public void addBooking(Booking booking) {
+		if (bookings == null) bookings = new ArrayList<>();
+		bookings.add(booking);
+	}
 
 	@Override
 	public String toString() {

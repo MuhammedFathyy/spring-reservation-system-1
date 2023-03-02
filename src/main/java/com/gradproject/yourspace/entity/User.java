@@ -2,6 +2,7 @@ package com.gradproject.yourspace.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -56,9 +57,10 @@ public class User {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Request> requests;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "user_id", nullable = false)
+    @OneToMany(mappedBy = "user",cascade = {CascadeType.MERGE, CascadeType.DETACH,
+            CascadeType.REFRESH}, orphanRemoval = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private List<Booking> bookings;
 
 

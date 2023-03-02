@@ -30,14 +30,24 @@ public class Booking {
     @NotNull
     private Date date;
 
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH,
+                    CascadeType.REFRESH})
+    @JoinColumn(name = "room_id", nullable = false)
+    private Room room;
+
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH,
+            CascadeType.REFRESH})
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     public Booking() {
     }
 
-    public Booking(int id, Time startTime, Time endTime, Date date) {
-        this.id = id;
+    public Booking(Time startTime, Time endTime, Date date, Room room) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.date = date;
+        this.room = room;
     }
 
     public int getId() {
@@ -72,6 +82,21 @@ public class Booking {
         this.date = date;
     }
 
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @Override
     public String toString() {
@@ -80,6 +105,7 @@ public class Booking {
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", date=" + date +
+                ", room=" + room +
                 '}';
     }
 }
