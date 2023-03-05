@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/space")
@@ -54,6 +55,11 @@ public class SpaceController {
     public Space updateSpace(@RequestBody Space space){
         spaceService.saveSpace(space);
         return space;
+    }
+    @PatchMapping("{spaceId}")
+    public void updateSpaceByFields(@PathVariable int spaceId, @RequestBody Map<String,Object> fields){
+        spaceService.updateSpaceByFields(spaceId,fields);
+
     }
 
 }

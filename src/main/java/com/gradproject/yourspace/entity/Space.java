@@ -8,7 +8,6 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Time;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -65,6 +64,7 @@ public class Space {
 
 	}
 
+
 	public Space(String address, String district, double rating, String images, int roomNumbers, String description, String name, String contactNumber, double minPrice, double maxPrice, Time startTime, Time endTime, boolean drinks, String owner, boolean outdoors, List<Room> rooms) {
 		this.address = address;
 		this.district = district;
@@ -84,133 +84,132 @@ public class Space {
 		this.rooms = rooms;
 	}
 
-	public void setSpaceId(int spaceId) {
-		this.spaceId = spaceId;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public void setDistrict(String district) {
-		this.district = district;
-	}
-
-	public void setRating(double rating) {
-		this.rating = rating;
-	}
-
-	public void setImages(String images) {
-		this.images = images;
-	}
-
-	public void setRoomNumbers(int roomNumbers) {
-		this.roomNumbers = roomNumbers;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setContactNumber(String contactNumber) {
-		this.contactNumber = contactNumber;
-	}
-
-	public void setMinPrice(double minPrice) {
-		this.minPrice = minPrice;
-	}
-
-	public void setMaxPrice(double maxPrice) {
-		this.maxPrice = maxPrice;
-	}
-
-	public void setStartTime(Time startTime) {
-		this.startTime = startTime;
-	}
-
-	public void setEndTime(Time endTime) {
-		this.endTime = endTime;
-	}
-
-	public void setDrinks(boolean drinks) {
-		this.drinks = drinks;
-	}
-
-	public void setOwner(String owner) {
-		this.owner = owner;
-	}
-
-	public void setOutdoors(boolean outdoors) {
-		this.outdoors = outdoors;
-	}
-
 	public int getSpaceId() {
 		return spaceId;
+	}
+
+	public void setSpaceId(int spaceId) {
+		this.spaceId = spaceId;
 	}
 
 	public String getAddress() {
 		return address;
 	}
 
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public String getDistrict() {
 		return district;
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
 	}
 
 	public double getRating() {
 		return rating;
 	}
 
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
+
 	public String getImages() {
 		return images;
+	}
+
+	public void setImages(String images) {
+		this.images = images;
 	}
 
 	public int getRoomNumbers() {
 		return roomNumbers;
 	}
 
+	public void setRoomNumbers(int roomNumbers) {
+		this.roomNumbers = roomNumbers;
+	}
+
 	public String getDescription() {
 		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getName() {
 		return name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getContactNumber() {
 		return contactNumber;
+	}
+
+	public void setContactNumber(String contactNumber) {
+		this.contactNumber = contactNumber;
 	}
 
 	public double getMinPrice() {
 		return minPrice;
 	}
 
-	public Time getStartTime() {
-		return startTime;
-	}
-
-	public Time getEndTime() {
-		return endTime;
+	public void setMinPrice(double minPrice) {
+		this.minPrice = minPrice;
 	}
 
 	public double getMaxPrice() {
 		return maxPrice;
 	}
 
+	public void setMaxPrice(double maxPrice) {
+		this.maxPrice = maxPrice;
+	}
+
+	public Time getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Time startTime) {
+		this.startTime = startTime;
+	}
+
+	public Time getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Time endTime) {
+		this.endTime = endTime;
+	}
 
 	public boolean isDrinks() {
 		return drinks;
+	}
+
+	public void setDrinks(boolean drinks) {
+		this.drinks = drinks;
 	}
 
 	public String getOwner() {
 		return owner;
 	}
 
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+
 	public boolean isOutdoors() {
 		return outdoors;
+	}
+
+	public void setOutdoors(boolean outdoors) {
+		this.outdoors = outdoors;
 	}
 
 	public List<Room> getRooms() {
@@ -219,13 +218,5 @@ public class Space {
 
 	public void setRooms(List<Room> rooms) {
 		this.rooms = rooms;
-	}
-
-	public void addRoom(Room room) {
-		if (rooms == null) {
-			rooms = new ArrayList<>();
-		}
-		rooms.add(room);
-
 	}
 }

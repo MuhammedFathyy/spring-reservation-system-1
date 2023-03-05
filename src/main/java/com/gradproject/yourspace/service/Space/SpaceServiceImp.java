@@ -7,10 +7,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class SpaceServiceImp implements SpaceService{
 
     SpaceDao spaceDao;
+    @Autowired
+    public SpaceServiceImp (SpaceDao spaceDao1){
+        this.spaceDao= spaceDao1;
+    }
 
     @Override
     @Transactional
@@ -37,10 +43,9 @@ public class SpaceServiceImp implements SpaceService{
 
     }
 
-    @Autowired
-    public SpaceServiceImp (SpaceDao spaceDao1){
-        this.spaceDao= spaceDao1;
+    @Override
+    @Transactional
+    public void updateSpaceByFields(int spaceId, Map<String, Object> fields) {
+        spaceDao.updateSpaceByFields(spaceId,fields);
     }
-
-
 }
