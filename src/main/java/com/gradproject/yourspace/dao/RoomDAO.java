@@ -5,9 +5,12 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.ReflectionUtils;
 
 import javax.persistence.EntityManager;
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class RoomDAO {
@@ -42,6 +45,21 @@ public class RoomDAO {
 		Query query = session.createQuery("delete from " + Room.class.getName() +  " where roomId = :id");
 		query.setParameter("id",id );
 		query.executeUpdate();
+
+	}
+
+    public void UpdateRoomByField(int roomId, Map<String, Object> fields) {
+		Session session = entityManager.unwrap(Session.class);
+		Room room =session.get(Room.class,roomId);
+
+
+		fields.forEach((key,value)->{
+			Field field = ReflectionUtils.findField(Room.class, key);
+			field.setAccessible(true);
+			ReflectionUtils.setField(field,room , value);
+
+		});
+		session.saveOrUpdate(room);
 
 	}
 

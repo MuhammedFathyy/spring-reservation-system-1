@@ -1,13 +1,13 @@
 package com.gradproject.yourspace.service;
 
-import java.util.List;
-
+import com.gradproject.yourspace.dao.RoomDAO;
+import com.gradproject.yourspace.entity.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gradproject.yourspace.dao.RoomDAO;
-import com.gradproject.yourspace.entity.Room;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class RoomService {
@@ -41,4 +41,9 @@ public class RoomService {
 		roomDAO.deleteRoom(id);
 	}
 
+
+	@Transactional
+    public void UpdateRoomByField(int roomId, Map<String, Object> fields) {
+		roomDAO.UpdateRoomByField(roomId,fields);
+    }
 }
