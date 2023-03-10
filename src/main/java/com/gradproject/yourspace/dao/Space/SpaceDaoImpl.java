@@ -9,6 +9,7 @@ import org.springframework.util.ReflectionUtils;
 
 import javax.persistence.EntityManager;
 import java.lang.reflect.Field;
+import java.sql.Time;
 import java.util.List;
 import java.util.Map;
 
@@ -53,10 +54,18 @@ public class SpaceDaoImpl implements  SpaceDao{
         Session session = entityManager.unwrap(Session.class);
         Space space =session.get(Space.class,spaceId);
 
+
         fields.forEach((key,value)->{
-            Field field= ReflectionUtils.findField(Space.class,key);
+            Field field = ReflectionUtils.findField(Space.class, key);
             field.setAccessible(true);
-            ReflectionUtils.setField(field,space,value);
+            try {
+
+                ReflectionUtils.setField(field, space, value);
+            }
+            catch(IllegalArgumentException exe){
+
+                ReflectionUtils.setField(field, space, Time.valueOf((String) value));
+            }
         });
         session.saveOrUpdate(space);
 
