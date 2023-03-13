@@ -34,8 +34,7 @@ public class Room {
 	@Column(name = "image")
 	private String image;
 
-	@OneToMany(mappedBy = "room", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
-			CascadeType.REFRESH})
+	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
 	private List<Booking> bookings;

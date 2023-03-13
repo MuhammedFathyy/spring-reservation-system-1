@@ -57,8 +57,7 @@ public class User {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Request> requests;
 
-    @OneToMany(mappedBy = "user",cascade = {CascadeType.MERGE, CascadeType.DETACH,
-            CascadeType.REFRESH}, orphanRemoval = true)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private List<Booking> bookings;

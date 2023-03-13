@@ -36,7 +36,9 @@ public class BookingDAOImpl implements BookingDAO{
     @Override
     public void deleteBooking(int bookingId) {
         Session session = entityManager.unwrap(Session.class);
-        Query<Booking> query = session.createQuery("delete from Booking where id=:bookingId", Booking.class);
+        Query<Booking> query = session.
+                createQuery("delete from Booking where id=:bookingId").
+                setParameter("bookingId", bookingId);
         query.executeUpdate();
     }
 }
