@@ -1,6 +1,7 @@
 package com.gradproject.yourspace.controller;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.gradproject.yourspace.entity.User;
 import com.gradproject.yourspace.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,65 +23,28 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    public UserController(UserService userService) {this.userService = userService;}
+
     @GetMapping()
-    public List<User> getUsers(){
-        List<User> users = userService.getUsers();
-        return users;
-    };
+    public List<User> getUsers(){return userService.getUsers();};
+
 
     @GetMapping("{userid}")
-    public User getUser(@PathVariable int userid){
-        User user = userService.getUser(userid);
-        if(user == null){
-            throw new RuntimeException("There is no user with this id");
-        }
-        return user;
-    }
+    public User getUser(@PathVariable int userid){return userService.getUser(userid);}
+
 
     @PostMapping()
-    public void saveUser(@RequestBody User user){
-        user.setUserId(0);
-        userService.saveUser(user);
-    }
+    public void saveUser(@RequestBody User user) {userService.saveUser(user);}
 
     @PatchMapping("{userId}")
-    public void updateUser(@PathVariable int userId, @RequestBody HashMap<String , Object> fields)
-    {
-        User user = userService.getUser(userId);
-        //you can check for this user if it is existing or not
-        fields.forEach((key,value)->{
-            Field field = ReflectionUtils.findField(User.class, key);
-            field.setAccessible(true);
-            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            boolean normalParameter = true;
-
-            try {
-                int points = Integer.parseInt(value.toString());
-                ReflectionUtils.setField(field , user , points);
-                normalParameter = false;
-
-            }catch (NumberFormatException exc){
-                try{
-                    Date date = dateFormat.parse((String)value);
-                    ReflectionUtils.setField(field , user , date);
-                    normalParameter = false;
-                }catch ( ParseException e) {}
-
-            if(normalParameter){
-                ReflectionUtils.setField(field , user , value);
-            }
-            }
-        });
-        userService.saveUser(user);
-
-    }
+    public void updateUser(@PathVariable int userId,
+                           @RequestBody HashMap<String , Object> fields)
+    {userService.updateUser(userId , fields);}
 
     @DeleteMapping("{userId}")
     public void deleteUser(@PathVariable int userId)
     {
         userService.deleteUser(userId);
     }
-
-
-
+    
 }

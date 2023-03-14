@@ -7,11 +7,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookingServiceImpl implements BookingService{
-    @Autowired
-    private BookingDAO bookingDAO;
+    private final BookingDAO bookingDAO;
+
+    public BookingServiceImpl(BookingDAO bookingDAO) {
+        this.bookingDAO = bookingDAO;
+    }
+
     @Override
     @Transactional
     public List<Booking> findAll() {
@@ -20,25 +25,29 @@ public class BookingServiceImpl implements BookingService{
 
     @Override
     @Transactional
-    public Booking findById(int bookId) {
-        return bookingDAO.findById(bookId);
+    public Optional<Booking> findById(int bookId) {
+        return bookingDAO.findById(
+                Integer.valueOf(bookId)
+        );
     }
 
     @Override
     @Transactional
     public void saveBooking(Booking booking) {
-        bookingDAO.saveBooking(booking);
+        bookingDAO.save(booking);
     }
 
     @Override
     @Transactional
     public void updateBooking(Booking booking) {
-        bookingDAO.saveBooking(booking);
+                bookingDAO.save(booking);
     }
 
     @Override
     @Transactional
     public void deleteBooking(int bookingId) {
-        bookingDAO.deleteBooking(bookingId);
+        bookingDAO.delete(bookingDAO.findById(
+                Integer.valueOf(bookingId)
+        ).get());
     }
 }

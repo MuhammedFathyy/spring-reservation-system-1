@@ -1,13 +1,14 @@
 package com.gradproject.yourspace.dao;
 
-import com.gradproject.yourspace.entity.Booking;
+import com.gradproject.yourspace.entity.Space;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface BookingDAO extends JpaRepository<Booking, Integer> {
+public interface SpaceRepository extends JpaRepository<Space,Integer> {
+
+Space findSpaceBySpaceId(int id);
+
 
 
 }

@@ -25,13 +25,13 @@ public class Booking {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private Time endTime;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @Column(name = "date")
     @NotNull
     private Date date;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH,
-                    CascadeType.REFRESH})
+            CascadeType.REFRESH})
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
 
