@@ -10,12 +10,8 @@ import java.util.TimeZone;
 public class YourspaceApplication {
 
 	public static void main(String[] args) {
+		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 		SpringApplication.run(YourspaceApplication.class, args);
 	}
 
-	@PostConstruct
-	public void init(){
-		// Setting Spring Boot SetTimeZone
-		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-	}
 }
