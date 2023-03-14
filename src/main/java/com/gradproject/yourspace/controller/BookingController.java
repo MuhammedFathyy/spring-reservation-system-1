@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -27,7 +28,7 @@ public class BookingController {
     }
 
     @GetMapping("/booking/{bookId}")
-    public Booking findById(@PathVariable int bookId) {
+    public Optional<Booking> findById(@PathVariable int bookId) {
         return bookingService.findById(bookId);
     }
 
@@ -44,14 +45,15 @@ public class BookingController {
 
     @DeleteMapping("/booking/{bookingId}")
     public void deleteBooking(@PathVariable int bookingId) {
-        Booking temp = bookingService.findById(bookingId);
-        if (temp == null) throw new RuntimeException("no booking with id "+ bookingId);
+        Optional<Booking> temp = bookingService.findById(bookingId);
+        if (!temp.isPresent())
+            throw new RuntimeException("no booking with id " + bookingId);
         bookingService.deleteBooking(bookingId);
     }
 
     @PatchMapping("bookings/{id}")
     public void updateBookingPartially(@PathVariable int id, @RequestBody HashMap<String, Object> fields) {
-        Booking booking = bookingService.findById(id);
+        Optional<Booking> booking = bookingService.findById(id);
         fields.forEach((key, value) -> {
             Field field = ReflectionUtils.findField(Booking.class, key);
             field.setAccessible(true);
@@ -59,32 +61,21 @@ public class BookingController {
             boolean flag = true;
             try {
                 Date date = dateFormat.parse((String) value);
-                ReflectionUtils.setField(field, booking, date);
+                ReflectionUtils.setField(field, booking.get(), date);
                 flag = false;
             } catch (ParseException e) {
                 try {
-                    ReflectionUtils.setField(field, booking, Time.valueOf((String) value));
+                    ReflectionUtils.setField(field, booking.get(), Time.valueOf((String) value));
                     flag = false;
                 } catch (Exception ex) {
                 }
             }
 
             if (flag)
-                ReflectionUtils.setField(field, booking, value);
+                ReflectionUtils.setField(field, booking.get(), value);
         });
-        bookingService.updateBooking(booking);
+        bookingService.updateBooking(booking.get());
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
