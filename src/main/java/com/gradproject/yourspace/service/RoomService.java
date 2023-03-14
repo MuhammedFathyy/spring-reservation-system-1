@@ -5,45 +5,58 @@ import com.gradproject.yourspace.entity.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ReflectionUtils;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class RoomService {
 
-	@Autowired
-	private RoomDAO roomDAO;
+    @Autowired
+    private final RoomDAO roomDAO;
 
-	public RoomService(RoomDAO roomDAO) {
-		super();
-		this.roomDAO = roomDAO;
-	}
-	@Transactional
-	public List<Room> getRooms() {
-		return roomDAO.getRooms();
-
-	}
-	
-	@Transactional
-	public Room getRoom(int id) {
-		return roomDAO.getRoom(id);
-	}
-	
-	@Transactional
-	public void saveRoom(Room room) {
-		roomDAO.saveRoom(room);
-	}
-
-	@Transactional
-	public void deleteRoom(int id)
-	{
-		roomDAO.deleteRoom(id);
-	}
-
-
-	@Transactional
-    public void UpdateRoomByField(int roomId, Map<String, Object> fields) {
-		roomDAO.UpdateRoomByField(roomId,fields);
+    public RoomService(RoomDAO roomDAO) {
+        this.roomDAO = roomDAO;
     }
+
+
+    @Transactional
+    public List<Room> getRooms() {
+        return roomDAO.findAll();
+
+    }
+
+    @Transactional
+    public Room getRoom(Integer id) {
+        return roomDAO.getRoomByRoomId(id);
+    }
+
+    @Transactional
+    public void saveRoom(Room room) {
+        roomDAO.save(room);
+    }
+
+    @Transactional
+    public void deleteRoom(Integer id) {
+        roomDAO.deleteRoomByRoomId(id);
+    }
+
+
+    @Transactional
+    public void updateRoomByField(Integer roomId, Map<String, Object> fields) {
+        Room room = roomDAO.getRoomByRoomId(roomId);
+
+        fields.forEach((key, value) -> {
+            Field field = ReflectionUtils.findField(Room.class, key);
+            field.setAccessible(true);
+            ReflectionUtils.setField(field, room, value);
+
+        });
+        roomDAO.save(room);
+
+    }
+
 }
+
