@@ -18,11 +18,12 @@ APIs:
              
 2- Cancel Booking:
 ------------------
-* URL : "           /bookingId=value"
+* URL : "_____/bookingId=value"
 * function : cancel booking already submitted.
 * request  body :
-* logic : 1) check if booking can be cancelled.
-          2) cancel booking and send response.
+* logic : 
+  1) check if booking can be cancelled.
+  2) cancel booking and send response.
 * response : canceled --> status : ok  , message : successfully cancelled , code : 200.
              not canceled --> status : error , message : booking can't be canceled.
              

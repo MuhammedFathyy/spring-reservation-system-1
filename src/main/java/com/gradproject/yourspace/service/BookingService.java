@@ -1,18 +1,21 @@
 package com.gradproject.yourspace.service;
 
 import com.gradproject.yourspace.entity.Booking;
+import org.springframework.http.ResponseEntity;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 public interface BookingService {
     List<Booking> findAll();
 
-    Optional<Booking> findById(int bookId);
+    Booking findById(int bookId);
 
     void saveBooking(Booking booking);
 
     void updateBooking(Booking booking);
 
-    void deleteBooking(int bookingId);
+    ResponseEntity<String> deleteBooking(int bookingId);
+
+    void updateBookingPartially(int id, HashMap<String, Object> fields);
 }

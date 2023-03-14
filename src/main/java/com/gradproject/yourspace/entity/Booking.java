@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "booking")
@@ -28,7 +28,7 @@ public class Booking {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @Column(name = "date")
     @NotNull
-    private Date date;
+    private LocalDate date;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH,
             CascadeType.REFRESH})
@@ -43,7 +43,7 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(Time startTime, Time endTime, Date date, Room room) {
+    public Booking(Time startTime, Time endTime, @NotNull LocalDate date, Room room) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.date = date;
@@ -74,11 +74,11 @@ public class Booking {
         this.endTime = endTime;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

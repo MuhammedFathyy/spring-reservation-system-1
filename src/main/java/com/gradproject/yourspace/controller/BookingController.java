@@ -3,78 +3,47 @@ package com.gradproject.yourspace.controller;
 import com.gradproject.yourspace.entity.Booking;
 import com.gradproject.yourspace.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.ReflectionUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Field;
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/bookings")
 public class BookingController {
     @Autowired
     private BookingService bookingService;
 
-    @GetMapping("/bookings")
+    @GetMapping()
     public List<Booking> findAll() {
         return bookingService.findAll();
     }
 
-    @GetMapping("/booking/{bookId}")
-    public Optional<Booking> findById(@PathVariable int bookId) {
+    @GetMapping("/{bookId}")
+    public Booking findById(@PathVariable int bookId) {
         return bookingService.findById(bookId);
     }
 
-    @PostMapping("/bookings")
+    @PostMapping()
     public void saveBooking(@RequestBody Booking booking) {
         booking.setId(0);
         bookingService.saveBooking(booking);
     }
 
-    @PutMapping("/bookings")
+    @PutMapping()
     public void updateBooking(@RequestBody Booking booking) {
         bookingService.updateBooking(booking);
     }
 
-    @DeleteMapping("/booking/{bookingId}")
-    public void deleteBooking(@PathVariable int bookingId) {
-        Optional<Booking> temp = bookingService.findById(bookingId);
-        if (!temp.isPresent())
-            throw new RuntimeException("no booking with id " + bookingId);
-        bookingService.deleteBooking(bookingId);
+    @DeleteMapping("/{bookingId}")
+    public ResponseEntity<String> deleteBooking(@PathVariable int bookingId) {
+        return bookingService.deleteBooking(bookingId);
     }
 
-    @PatchMapping("bookings/{id}")
+    @PatchMapping("/{id}")
     public void updateBookingPartially(@PathVariable int id, @RequestBody HashMap<String, Object> fields) {
-        Optional<Booking> booking = bookingService.findById(id);
-        fields.forEach((key, value) -> {
-            Field field = ReflectionUtils.findField(Booking.class, key);
-            field.setAccessible(true);
-            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            boolean flag = true;
-            try {
-                Date date = dateFormat.parse((String) value);
-                ReflectionUtils.setField(field, booking.get(), date);
-                flag = false;
-            } catch (ParseException e) {
-                try {
-                    ReflectionUtils.setField(field, booking.get(), Time.valueOf((String) value));
-                    flag = false;
-                } catch (Exception ex) {
-                }
-            }
-
-            if (flag)
-                ReflectionUtils.setField(field, booking.get(), value);
-        });
-        bookingService.updateBooking(booking.get());
+        bookingService.updateBookingPartially(id, fields);
     }
 
 
