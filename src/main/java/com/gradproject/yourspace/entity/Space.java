@@ -31,10 +31,11 @@ public class Space {
 	private String images;
 	@Column(name = "room_numbers")
 	private int roomNumbers;
+
 	@Column(name = "description")
 	private String description;
 	@NotNull
-	@Column(name = "name")
+	@Column(name = "name",unique = true)
 	private String name;
 	@Column(name = "contact_No")
 	private String contactNumber;
