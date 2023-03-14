@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user" , indexes = @Index(columnList = "user_id"))
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
