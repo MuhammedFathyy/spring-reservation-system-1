@@ -32,8 +32,8 @@ APIs:
 -------------------
 * URL : "http://localhost:8080/api/bookings/bookingsHistory/[userID]"
 * function : get history of all bookings of user.
-* path variable : user ID
-* logic : return all data needed about the bookings of currently logged user sorted by date (given its id)
-* response : BookingDTO (  startTime , endTime , date , roomName , spaceName , roomImage , price , spaceAddress ) 
+* path variable : user ID .
+* logic : return all data needed about the bookings of currently logged user(given its id) sorted by date fron new to old .
+* response : BookingDTO (  userFirstName , userLastName ,startTime , endTime , date , roomName , spaceName , roomImage , price , spaceAddress ) 
  
  
