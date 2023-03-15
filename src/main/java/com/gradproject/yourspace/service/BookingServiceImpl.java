@@ -4,25 +4,17 @@ import com.gradproject.yourspace.dao.BookingDAO;
 import com.gradproject.yourspace.dao.UserDAO;
 import com.gradproject.yourspace.dto.BookingDTO;
 import com.gradproject.yourspace.entity.Booking;
-<<<<<<< Updated upstream
 import org.springframework.http.ResponseEntity;
-=======
-import com.gradproject.yourspace.entity.User;
->>>>>>> Stashed changes
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
 import java.sql.Time;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -108,8 +100,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     @Transactional
-    public List<BookingDTO> getBookingsHistory(int userId)
-    {
+    public List<BookingDTO> getBookingsHistory(int userId) {
         return bookingDAO.findAllByUserOrderByDate(userId);
 
     }

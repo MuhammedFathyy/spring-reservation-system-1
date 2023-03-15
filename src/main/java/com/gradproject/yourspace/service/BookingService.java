@@ -15,21 +15,11 @@ public interface BookingService {
     void saveBooking(Booking booking);
 
     void updateBooking(Booking booking);
-
-<<<<<<< Updated upstream
     ResponseEntity<String> deleteBooking(int bookingId);
 
     void updateBookingPartially(int id, HashMap<String, Object> fields);
-=======
-<<<<<<< HEAD
-    void deleteBooking(int bookingId);
 
     List<BookingDTO> getBookingsHistory (int userId);
 
-=======
-    ResponseEntity<String> deleteBooking(int bookingId);
 
-    void updateBookingPartially(int id, HashMap<String, Object> fields);
->>>>>>> ef3660783ed86127494caf5a8caede490bd6c9ca
->>>>>>> Stashed changes
 }
