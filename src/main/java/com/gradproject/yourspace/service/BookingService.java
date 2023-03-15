@@ -15,11 +15,12 @@ public interface BookingService {
     void saveBooking(Booking booking);
 
     void updateBooking(Booking booking);
+
     ResponseEntity<String> deleteBooking(int bookingId);
 
     void updateBookingPartially(int id, HashMap<String, Object> fields);
 
-    List<BookingDTO> getBookingsHistory (int userId);
+    List<BookingDTO> getBookingsHistory(int userId);
 
 
 }
