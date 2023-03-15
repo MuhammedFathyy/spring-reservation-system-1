@@ -3,6 +3,7 @@ package com.gradproject.yourspace.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.Date;
 
 public interface BookingDTO {
@@ -14,7 +15,7 @@ public interface BookingDTO {
 
     Time getEndTime();
 
-    Date getBookingDate();
+    LocalDate getBookingDate();
 
     String getRoomName();
 

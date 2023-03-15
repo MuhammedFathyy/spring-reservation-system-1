@@ -1,7 +1,6 @@
 package com.gradproject.yourspace.service;
 
 import com.gradproject.yourspace.dao.BookingDAO;
-import com.gradproject.yourspace.dao.UserDAO;
 import com.gradproject.yourspace.dto.BookingDTO;
 import com.gradproject.yourspace.entity.Booking;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +20,9 @@ import java.util.List;
 @Service
 public class BookingServiceImpl implements BookingService {
     private final BookingDAO bookingDAO;
-    private final UserDAO userDAO;
 
-    public BookingServiceImpl(BookingDAO bookingDAO, UserDAO userDAO) {
+    public BookingServiceImpl(BookingDAO bookingDAO) {
         this.bookingDAO = bookingDAO;
-        this.userDAO = userDAO;
     }
 
     @Override
@@ -64,8 +61,8 @@ public class BookingServiceImpl implements BookingService {
         LocalDate bookingDate = booking.getDate();
         long daysBetween = ChronoUnit.DAYS.between(LocalDate.now(), bookingDate);
         if (daysBetween <= 1) {
-            return ResponseEntity.badRequest().
-                    body("Can't cancel booking with id " + bookingId);
+            return ResponseEntity.badRequest()
+                    .body("Can't cancel booking with id " + bookingId);
         }
         bookingDAO.delete(booking);
         return ResponseEntity.ok("Booking canceled");
