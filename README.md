@@ -10,7 +10,8 @@ APIs:
 * URL : 
 * function : request a new booking for user.
 * request body  : userId , roomId , date , startTime , endTime.
-* logic : 1) check if room is avaliable for the request period.
+* logic :
+          1) check if room is avaliable for the request period.
           2) reply with booking if sucessfully created and send mail or error status if already booked.
 * response : avaliable --> status: ok  , message: successfully booked ,code : 200 
              not avaliable --> status : error , message : room is booked in this time slot.
@@ -29,10 +30,10 @@ APIs:
              
 3- Booking History:
 -------------------
-* URL : "                 /userId=value"
+* URL : "http://localhost:8080/api/bookings/bookingsHistory/[userID]"
 * function : get history of all bookings of user.
-* request body : 
-* logic : return all booking of currently logged user sorted by date.
-* response : list of (  startTime , endTime , date , roomName , spaceName , roomImage , price , spaceAddress ) 
+* path variable : user ID
+* logic : return all data needed about the bookings of currently logged user sorted by date (given its id)
+* response : BookingDTO (  startTime , endTime , date , roomName , spaceName , roomImage , price , spaceAddress ) 
  
  
