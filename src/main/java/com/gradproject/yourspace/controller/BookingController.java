@@ -1,5 +1,6 @@
 package com.gradproject.yourspace.controller;
 
+import com.gradproject.yourspace.dto.BookingDTO;
 import com.gradproject.yourspace.entity.Booking;
 import com.gradproject.yourspace.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,12 @@ public class BookingController {
     @PatchMapping("/{id}")
     public void updateBookingPartially(@PathVariable int id, @RequestBody HashMap<String, Object> fields) {
         bookingService.updateBookingPartially(id, fields);
+    }
+
+    @GetMapping("bookingsHistory/{userId}")
+    public List <BookingDTO> getBookingsHistory (@PathVariable int userId)
+    {
+        return bookingService.getBookingsHistory(userId);
     }
 
 
