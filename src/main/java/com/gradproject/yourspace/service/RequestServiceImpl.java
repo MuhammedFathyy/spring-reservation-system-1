@@ -2,16 +2,23 @@ package com.gradproject.yourspace.service;
 
 import com.gradproject.yourspace.dao.RequestDAO;
 import com.gradproject.yourspace.entity.Request;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 
 import javax.transaction.Transactional;
+import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
-@Service
-public class RequestServiceImpl implements RequestService{
 
-    @Autowired
-    private RequestDAO requestDAO;
+@Service
+public class RequestServiceImpl implements RequestService {
+
+    private final RequestDAO requestDAO;
+
+    public RequestServiceImpl(RequestDAO requestDAO) {
+        this.requestDAO = requestDAO;
+    }
+
     @Override
     @Transactional
     public List<Request> findAll() {
@@ -21,24 +28,43 @@ public class RequestServiceImpl implements RequestService{
     @Override
     @Transactional
     public Request findById(int requestId) {
-        return requestDAO.findById(requestId);
+        Request request = requestDAO.findById(requestId).orElse(null);
+        if (request == null)
+            throw new RuntimeException("no request found with id " + requestId);
+        return request;
     }
 
     @Override
     @Transactional
     public void saveRequest(Request request) {
-        requestDAO.saveRequest(request);
+        requestDAO.save(request);
     }
 
     @Override
     @Transactional
     public void updateRequest(Request request) {
-        requestDAO.saveRequest(request);
+        requestDAO.save(request);
     }
 
     @Override
     @Transactional
     public void deleteRequest(int requestId) {
-        requestDAO.deleteRequest(requestId);
+        Request request = requestDAO.findById(requestId).orElse(null);
+        if (request == null)
+            throw new RuntimeException("no request found with id " + requestId);
+        requestDAO.delete(request);
+    }
+
+    @Override
+    public void updateRequestPartially(int id, HashMap<String, Object> fields) {
+        Request request = requestDAO.findById(id).orElse(null);
+        if (request == null)
+            throw new RuntimeException("no request found with id " + id);
+        fields.forEach((key, value) -> {
+            Field field = ReflectionUtils.findField(Request.class, key);
+            field.setAccessible(true);
+            ReflectionUtils.setField(field, request, value);
+        });
+        requestDAO.save(request);
     }
 }
