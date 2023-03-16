@@ -52,9 +52,9 @@ public class User {
     @Column(name = "profile_picture")
     private String picture;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", nullable = false)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private List<Request> requests;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)

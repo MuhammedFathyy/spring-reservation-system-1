@@ -28,18 +28,21 @@ public class Request {
     @NotNull
     private int noOfRooms;
 
-
-
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     public Request() {
     }
 
-    public Request(int requestId, String name, String status, String address, int noOfRooms) {
+    public Request(int requestId, String name, String status, String address, int noOfRooms,
+                   User user) {
         this.requestId = requestId;
         this.name = name;
         this.status = status;
         this.address = address;
         this.noOfRooms = noOfRooms;
+        this.user = user;
     }
 
     public int getRequestId() {
@@ -82,6 +85,13 @@ public class Request {
         this.noOfRooms = noOfRooms;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @Override
     public String toString() {
@@ -91,6 +101,7 @@ public class Request {
                 ", status='" + status + '\'' +
                 ", address='" + address + '\'' +
                 ", noOfRooms=" + noOfRooms +
+                ", user=" + user +
                 '}';
     }
 }
