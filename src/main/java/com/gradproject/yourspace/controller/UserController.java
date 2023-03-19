@@ -27,8 +27,6 @@ public class UserController {
     public UserDTO getUser(@PathVariable int userid){return userService.getUser(userid);}
 
 
-
-
     @PostMapping()
     public void saveUser(@RequestBody User user) {userService.saveUser(user);}
 

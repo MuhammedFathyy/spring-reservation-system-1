@@ -1,8 +1,7 @@
+
 package com.gradproject.yourspace.dto;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import java.util.Date;
+ import com.fasterxml.jackson.annotation.JsonFormat;
+ import java.util.Date;
 
 public class UserDTO {
 

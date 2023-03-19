@@ -23,6 +23,7 @@ public class User {
     @Column(name = "email",unique = true)
     @NotNull
     private String email;
+
     @Column(name = "first_name")
     private String firstName;
 
