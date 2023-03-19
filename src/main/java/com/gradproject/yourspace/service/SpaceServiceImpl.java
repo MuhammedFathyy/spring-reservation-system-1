@@ -93,7 +93,7 @@ public class SpaceServiceImpl implements SpaceService{
         List< Space>spaces= spaceDAO.findAll(pageable).getContent();
         return  spaces.stream().map(this::convertEntityToDto).collect(Collectors.toList());
     }
-    private SpaceDTO convertEntityToDto(Space space){
+    private  SpaceDTO convertEntityToDto(Space space){
 
         SpaceDTO spaceDTO= new SpaceDTO();
         spaceDTO.setName(space.getName());

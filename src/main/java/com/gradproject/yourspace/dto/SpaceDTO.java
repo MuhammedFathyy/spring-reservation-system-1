@@ -6,13 +6,12 @@ private String name;
 private String address;
 private String images;
 private double rating;
-
 private int spaceId;
 
     public SpaceDTO() {
     }
 
-    public SpaceDTO(int spaceId, String name, String address, String images, double rating) {
+    public SpaceDTO(int spaceId,String name, String address, String images, double rating) {
         this.spaceId=spaceId;
         this.name = name;
         this.address = address;

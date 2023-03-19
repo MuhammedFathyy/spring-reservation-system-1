@@ -59,8 +59,8 @@ public class Space {
 
 	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
 	@JoinColumn(name = "space_id")
-	@JsonIgnore
 	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
 	private List<Room> rooms;
 
 	public Space() {
