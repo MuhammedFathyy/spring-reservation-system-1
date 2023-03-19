@@ -1,5 +1,6 @@
 package com.gradproject.yourspace.service;
 
+import com.gradproject.yourspace.dto.UserDTO;
 import com.gradproject.yourspace.entity.User;
 
 import java.util.HashMap;
@@ -9,7 +10,7 @@ public interface UserService {
 
     public List<User> getUsers();
 
-    public User getUser(int id);
+    public UserDTO getUser(int id);
 
     public void saveUser(User user);
 
