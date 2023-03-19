@@ -1,18 +1,16 @@
 package com.gradproject.yourspace.service;
 
 import com.gradproject.yourspace.dao.UserDAO;
+import com.gradproject.yourspace.dto.UserDTO;
 import com.gradproject.yourspace.entity.User;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
-import java.text.ParseException;
-
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -24,6 +22,21 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserDAO usersDAO;
+    private UserDTO convertEntityToDto(User user){
+        UserDTO userDTO= new UserDTO();
+        userDTO.setAddress(user.getAddress());
+        userDTO.setBio(user.getBio());
+        userDTO.setUserId(user.getUserId());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setBirthDate(user.getBirthDate());
+        userDTO.setFirstName(user.getFirstName());
+        userDTO.setLastName(user.getLastName());
+        userDTO.setMobileNo(user.getMobileNo());
+        userDTO.setPicture(user.getPicture());
+        userDTO.setPoints(userDTO.getPoints());
+
+        return userDTO;
+    }
 
     public UserServiceImpl(UserDAO usersDAO) {
         this.usersDAO = usersDAO;
@@ -37,8 +50,9 @@ public class UserServiceImpl implements UserService{
 
     @Transactional
     @Override
-    public User getUser(int id) {
-        return usersDAO.findUserByUserId(id);
+    public UserDTO getUser(int id) {
+        User user= usersDAO.findUserByUserId(id);
+        return this.convertEntityToDto(user);
     }
 
     @Transactional

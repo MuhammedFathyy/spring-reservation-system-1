@@ -7,10 +7,13 @@ private String address;
 private String images;
 private double rating;
 
+private int spaceId;
+
     public SpaceDTO() {
     }
 
-    public SpaceDTO(String name, String address, String images, double rating) {
+    public SpaceDTO(int spaceId, String name, String address, String images, double rating) {
+        this.spaceId=spaceId;
         this.name = name;
         this.address = address;
         this.images = images;
@@ -47,5 +50,13 @@ private double rating;
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public int getSpaceId() {
+        return spaceId;
+    }
+
+    public void setSpaceId(int spaceId) {
+        this.spaceId = spaceId;
     }
 }

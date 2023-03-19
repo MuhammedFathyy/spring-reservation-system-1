@@ -2,6 +2,7 @@
 package com.gradproject.yourspace.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -58,6 +59,7 @@ public class Space {
 
 	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
 	@JoinColumn(name = "space_id")
+	@JsonIgnore
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Room> rooms;
 
