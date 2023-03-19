@@ -26,7 +26,7 @@ public class SpaceController {
         return spaceService.getSpaces();
     }
 
-    @GetMapping("allspaces/{pageNo}")
+    @GetMapping("space/{pageNo}")
     public List<SpaceDTO> getLimitedSpaces(@PathVariable int pageNo){
         return spaceService.getLimitedSpaces(pageNo);
 
