@@ -1,14 +1,20 @@
 package com.gradproject.yourspace.controller;
 
 
-import com.gradproject.yourspace.dto.UserDTO;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.gradproject.yourspace.entity.User;
 import com.gradproject.yourspace.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Field;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.text.ParseException;
 
 @RestController
 @RequestMapping("api/user")
@@ -24,9 +30,7 @@ public class UserController {
 
 
     @GetMapping("{userid}")
-    public UserDTO getUser(@PathVariable int userid){return userService.getUser(userid);}
-
-
+    public User getUser(@PathVariable int userid){return userService.getUser(userid);}
 
 
     @PostMapping()

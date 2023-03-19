@@ -20,9 +20,10 @@ public class User {
     @Column(name = "user_id")
     private int userId;
 
-    @Column(name = "email",unique = true)
+    @Column(name = "email")
     @NotNull
     private String email;
+
     @Column(name = "first_name")
     private String firstName;
 
