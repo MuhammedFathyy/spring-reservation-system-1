@@ -28,7 +28,6 @@ public class BookingController {
 
     @PostMapping()
     public void saveBooking(@RequestBody Booking booking) {
-        booking.setId(0);
         bookingService.saveBooking(booking);
     }
 
@@ -48,8 +47,7 @@ public class BookingController {
     }
 
     @GetMapping("bookingsHistory/{userId}")
-    public List <BookingDTO> getBookingsHistory (@PathVariable int userId)
-    {
+    public List<BookingDTO> getBookingsHistory(@PathVariable int userId) {
         return bookingService.getBookingsHistory(userId);
     }
 
