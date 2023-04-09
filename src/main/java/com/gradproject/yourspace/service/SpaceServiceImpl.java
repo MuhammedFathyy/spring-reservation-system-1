@@ -99,9 +99,8 @@ public class SpaceServiceImpl implements SpaceService{
         spaceDTO.setName(space.getName());
         spaceDTO.setAddress(space.getAddress());
         spaceDTO.setImages(space.getImages());
-        spaceDTO.setRating(space.getRating());
+        spaceDTO.setRatingAverage(space.getRatingAverage());
         spaceDTO.setSpaceId(space.getSpaceId());
-
         return spaceDTO;
     }
 }
