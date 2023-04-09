@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,8 +27,6 @@ public class Space {
 	@NotNull
 	@Column(name = "district")
 	private String district;
-	@Column(name = "rating")
-	private double rating;
 	@Column(name = "images")
 	private String images;
 	@Column(name = "room_numbers")
@@ -57,21 +56,28 @@ public class Space {
 	@Column(name = "outdoors")
 	private boolean outdoors;
 
-	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
-	@JoinColumn(name = "space_id")
+	@Column(name="rating_average")
+	private double ratingAverage;
+	@OneToMany(mappedBy = "space", cascade = CascadeType.ALL)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
 	private List<Room> rooms;
+
+
+	@OneToMany(mappedBy = "space",cascade = CascadeType.ALL)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	private List<Rating> ratings;
+
+
 
 	public Space() {
 
 	}
 
-
-	public Space(String address, String district, double rating, String images, int roomNumbers, String description, String name, String contactNumber, double minPrice, double maxPrice, Time startTime, Time endTime, boolean drinks, String owner, boolean outdoors, List<Room> rooms) {
+	public Space(String address, String district,  String images, int roomNumbers, String description, String name, String contactNumber, double minPrice, double maxPrice, Time startTime, Time endTime, boolean drinks, String owner, boolean outdoors, double ratingAverage, List<Room> rooms, List<Rating> ratings) {
 		this.address = address;
 		this.district = district;
-		this.rating = rating;
 		this.images = images;
 		this.roomNumbers = roomNumbers;
 		this.description = description;
@@ -84,7 +90,9 @@ public class Space {
 		this.drinks = drinks;
 		this.owner = owner;
 		this.outdoors = outdoors;
+		this.ratingAverage = ratingAverage;
 		this.rooms = rooms;
+		this.ratings = ratings;
 	}
 
 	public int getSpaceId() {
@@ -111,13 +119,7 @@ public class Space {
 		this.district = district;
 	}
 
-	public double getRating() {
-		return rating;
-	}
 
-	public void setRating(double rating) {
-		this.rating = rating;
-	}
 
 	public String getImages() {
 		return images;
@@ -221,5 +223,46 @@ public class Space {
 
 	public void setRooms(List<Room> rooms) {
 		this.rooms = rooms;
+	}
+
+	public List<Rating> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(List<Rating> ratings) {
+		this.ratings = ratings;
+	}
+
+
+	public void setRatingAverage() {
+
+		double total=0;
+
+		for(int i=0; i< ratings.size();i++){
+			total+= ratings.get(i).getRating();
+		}
+
+		total= total/ratings.size();
+		this.ratingAverage=total;
+
+
+	}
+	public double getRatingAverage() {
+		return ratingAverage;
+	}
+
+
+	public void addRoom(Room room){
+		if (rooms==null){
+			rooms= new ArrayList<>();
+		}
+		else rooms.add(room);
+	}
+
+	public void addRating(Rating rating){
+		if(this.ratings==null){
+			this.ratings=new ArrayList<>();
+		}
+		else ratings.add(rating);
 	}
 }

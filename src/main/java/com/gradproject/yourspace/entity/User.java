@@ -52,6 +52,8 @@ public class User {
     @Column(name = "profile_picture")
     private String picture;
 
+
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
@@ -63,10 +65,16 @@ public class User {
     private List<Booking> bookings;
 
 
+    @OneToMany(mappedBy="user",cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private List<Rating> ratings;
+
+
     public User() {
     }
 
-    public User(String email, String firstName, String lastName, String password, String mobileNo, String address, Date birthDate, String bio, int points, String picture, List<Request> requests, List<Booking> bookings) {
+    public User(String email, String firstName, String lastName, String password, String mobileNo, String address, Date birthDate, String bio, int points, String picture, List<Request> requests, List<Booking> bookings, List<Rating> ratings) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -79,6 +87,7 @@ public class User {
         this.picture = picture;
         this.requests = requests;
         this.bookings = bookings;
+        this.ratings = ratings;
     }
 
     public int getUserId() {
@@ -186,6 +195,14 @@ public class User {
         this.bookings = bookings;
     }
 
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -213,6 +230,13 @@ public class User {
     public void addBooking(Booking booking) {
         if (bookings == null) bookings = new ArrayList<>();
         bookings.add(booking);
+    }
+
+    public void addRating(Rating rating){
+        if(this.ratings==null){
+            this.ratings=new ArrayList<>();
+        }
+        else ratings.add(rating);
     }
 
 }

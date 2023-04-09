@@ -5,18 +5,20 @@ public class SpaceDTO {
 private String name;
 private String address;
 private String images;
-private double rating;
+
+private double ratingAverage;
 private int spaceId;
+
 
     public SpaceDTO() {
     }
 
-    public SpaceDTO(int spaceId,String name, String address, String images, double rating) {
-        this.spaceId=spaceId;
+    public SpaceDTO(String name, String address, String images, double ratingAverage, int spaceId) {
         this.name = name;
         this.address = address;
         this.images = images;
-        this.rating = rating;
+        this.ratingAverage = ratingAverage;
+        this.spaceId = spaceId;
     }
 
     public String getName() {
@@ -43,17 +45,19 @@ private int spaceId;
         this.images = images;
     }
 
-    public double getRating() {
-        return rating;
+
+    public double getRatingAverage() {
+        return ratingAverage;
     }
 
-    public void setRating(double rating) {
-        this.rating = rating;
+    public void setRatingAverage(double ratingAverage) {
+        this.ratingAverage = ratingAverage;
     }
 
     public int getSpaceId() {
         return spaceId;
     }
+
 
     public void setSpaceId(int spaceId) {
         this.spaceId = spaceId;
