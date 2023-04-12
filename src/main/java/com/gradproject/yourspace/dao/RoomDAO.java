@@ -16,7 +16,7 @@ public interface RoomDAO extends JpaRepository <Room , Integer> {
 
 	public void deleteRoomByRoomId(Integer id);
 
-	public Room save (Room room);
+
 
 }
 

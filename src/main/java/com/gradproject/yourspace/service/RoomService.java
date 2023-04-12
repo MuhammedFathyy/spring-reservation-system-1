@@ -14,8 +14,9 @@ import java.util.Map;
 @Service
 public class RoomService {
 
-    @Autowired
     private final RoomDAO roomDAO;
+
+    @Autowired
 
     public RoomService(RoomDAO roomDAO) {
         this.roomDAO = roomDAO;

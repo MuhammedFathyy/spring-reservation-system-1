@@ -34,6 +34,10 @@ public class Room {
 	@Column(name = "image")
 	private String image;
 
+	@ManyToOne
+	@JoinColumn(name = "space_id")
+	private Space space;
+
 	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
@@ -43,13 +47,14 @@ public class Room {
 		super();
 	}
 
-	public Room(int number, String name, String activity, String type, float price, String image) {
+	public Room(int number, String name, String activity, String type, float price, String image, Space space) {
 		this.number = number;
 		this.name = name;
 		this.activity = activity;
 		this.type = type;
 		this.price = price;
 		this.image = image;
+		this.space = space;
 	}
 
 	public int getRoomId() {
@@ -119,6 +124,14 @@ public class Room {
 	public void addBooking(Booking booking) {
 		if (bookings == null) bookings = new ArrayList<>();
 		bookings.add(booking);
+	}
+
+	public Space getSpace() {
+		return space;
+	}
+
+	public void setSpace(Space space) {
+		this.space = space;
 	}
 
 	@Override
