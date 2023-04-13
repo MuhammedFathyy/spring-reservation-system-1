@@ -22,6 +22,11 @@ public class RatingController {
     public List<Rating> getAllRatings(){
         return ratingService.getRating();
     }
+    @GetMapping("{ratingId}")
+    public Rating getRating(@PathVariable int ratingId){
+        return ratingService.getRatingById(ratingId);
+    }
+
 
     @DeleteMapping({"{ratingId}"})
     public void deleteRating(@PathVariable int ratingId){

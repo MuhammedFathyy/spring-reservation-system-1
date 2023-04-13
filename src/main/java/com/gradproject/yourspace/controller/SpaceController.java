@@ -1,6 +1,7 @@
 package com.gradproject.yourspace.controller;
 
 
+import com.gradproject.yourspace.dto.AllSpacesDTO;
 import com.gradproject.yourspace.dto.SpaceDTO;
 import com.gradproject.yourspace.entity.Space;
 import com.gradproject.yourspace.service.SpaceService;
@@ -22,12 +23,12 @@ public class SpaceController {
     }
 
     @GetMapping()
-    public List<Space> getSpaces(){
+    public List<SpaceDTO> getSpaces(){
         return spaceService.getSpaces();
     }
 
     @GetMapping("allspaces/{pageNo}")
-    public List<SpaceDTO> getLimitedSpaces(@PathVariable int pageNo){
+    public List<AllSpacesDTO> getLimitedSpaces(@PathVariable int pageNo){
         return spaceService.getLimitedSpaces(pageNo);
 
 
@@ -38,7 +39,7 @@ public class SpaceController {
 
     }
     @GetMapping("{spaceId}")
-    public Space getSpace(@PathVariable int spaceId){
+    public SpaceDTO getSpace(@PathVariable int spaceId){
     return spaceService.getSpaceById(spaceId);
     }
 

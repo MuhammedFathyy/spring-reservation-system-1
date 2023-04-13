@@ -18,12 +18,14 @@ public class Rating {
     private float rating;
 
 
-    @ManyToOne
-    @JoinColumn(name="space_id")
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH,
+            CascadeType.REFRESH})
+    @JoinColumn(name="space_id",nullable = false)
     private Space space;
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH,
+            CascadeType.REFRESH})
+    @JoinColumn(name="user_id",nullable = false)
     private User user;
 
 
