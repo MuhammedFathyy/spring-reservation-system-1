@@ -34,7 +34,6 @@ public class RoomController {
 
     @PostMapping()
     public Room addRoom(@RequestBody Room room) {
-        room.setRoomId(0);
         roomService.saveRoom(room);
         return room;
     }

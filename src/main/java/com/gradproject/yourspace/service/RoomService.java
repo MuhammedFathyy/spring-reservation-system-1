@@ -36,6 +36,8 @@ public class RoomService {
 
     @Transactional
     public void saveRoom(Room room) {
+
+        room.setRoomId(0);
         roomDAO.save(room);
     }
 
