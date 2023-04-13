@@ -44,6 +44,9 @@ public class BookingServiceImpl implements BookingService {
     public void saveBooking(Booking booking) {
         booking.setId(0);
         bookingDAO.save(booking);
+        //generate Qr Code
+        //send mail
+
     }
 
     @Override
