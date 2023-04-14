@@ -64,7 +64,7 @@ public class Space {
 	private List<Room> rooms;
 
 
-	@OneToMany(mappedBy = "space",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "space",cascade ={CascadeType.PERSIST,CascadeType.REMOVE})
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
 	private List<Rating> ratings;
