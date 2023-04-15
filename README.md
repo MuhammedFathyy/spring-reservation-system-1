@@ -11,10 +11,11 @@ APIs:
 * function : request a new booking for user.
 * request body  : userId , roomId , date , startTime , endTime.
 * logic :
-          1) check if room is avaliable for the request period.
-          2) reply with booking if sucessfully created and send mail or error status if already booked.
-* response : avaliable --> status: ok  , message: successfully booked ,code : 200 
-             not avaliable --> status : error , message : room is booked in this time slot.
+  1) check if room is avaliable for the request period.
+  2) reply with booking if sucessfully created and send mail or error status if already booked.
+* response :
+    * avaliable --> status: ok , message: successfully booked ,code : 200
+    * not avaliable --> status : Bad Request , message : room is booked in this time slot.
      
              
 2- Cancel Booking:
