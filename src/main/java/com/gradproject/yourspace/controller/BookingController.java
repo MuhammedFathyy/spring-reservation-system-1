@@ -28,13 +28,13 @@ public class BookingController {
     }
 
     @PostMapping()
-    public void saveBooking(@RequestBody @Valid Booking booking) {
-        bookingService.saveBooking(booking);
+    public ResponseEntity<String> saveBooking(@RequestBody @Valid Booking booking) {
+        return bookingService.saveBooking(booking);
     }
 
     @PutMapping()
-    public void updateBooking(@RequestBody @Valid Booking booking) {
-        bookingService.updateBooking(booking);
+    public ResponseEntity<String> updateBooking(@RequestBody @Valid Booking booking) {
+        return bookingService.updateBooking(booking);
     }
 
     @DeleteMapping("/{bookingId}")

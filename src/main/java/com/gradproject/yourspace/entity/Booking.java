@@ -32,12 +32,14 @@ public class Booking {
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH,
             CascadeType.REFRESH})
-    @JoinColumn(name = "room_id", nullable = false)
+    @JoinColumn(name = "room_id")
+    @NotNull
     private Room room;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH,
             CascadeType.REFRESH})
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
+    @NotNull
     private User user;
 
     public Booking() {

@@ -1,6 +1,8 @@
 package com.gradproject.yourspace.service;
 
+import com.gradproject.yourspace.dao.BookingDAO;
 import com.gradproject.yourspace.dao.RoomDAO;
+import com.gradproject.yourspace.entity.Booking;
 import com.gradproject.yourspace.entity.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
+import java.sql.Time;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -15,13 +19,13 @@ import java.util.Map;
 public class RoomService {
 
     private final RoomDAO roomDAO;
+    private final BookingDAO bookingDAO;
 
-    @Autowired
 
-    public RoomService(RoomDAO roomDAO) {
+    public RoomService(RoomDAO roomDAO, BookingDAO bookingDAO) {
         this.roomDAO = roomDAO;
+        this.bookingDAO = bookingDAO;
     }
-
 
     @Transactional
     public List<Room> getRooms() {
@@ -59,6 +63,17 @@ public class RoomService {
         });
         roomDAO.save(room);
 
+    }
+
+    public boolean isRoomAvailable(Integer roomId, LocalDate date, Time startTime,
+                                   Time endTime) {
+        roomDAO.findById(roomId).orElse(null);
+        List<Booking> bookings = bookingDAO.findBookingsByRoomAndDate(roomId, date);
+        for (Booking booking : bookings) {
+            if (booking.getStartTime().before(endTime)) return false;
+            if (booking.getEndTime().after(startTime)) return false;
+        }
+        return true;
     }
 
 }

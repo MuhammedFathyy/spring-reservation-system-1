@@ -12,9 +12,9 @@ public interface BookingService {
 
     Booking findById(int bookId);
 
-    void saveBooking(Booking booking);
+    ResponseEntity<String> saveBooking(Booking booking);
 
-    void updateBooking(Booking booking);
+    ResponseEntity<String> updateBooking(Booking booking);
 
     ResponseEntity<String> deleteBooking(int bookingId);
 

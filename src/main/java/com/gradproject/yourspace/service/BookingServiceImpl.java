@@ -3,6 +3,7 @@ package com.gradproject.yourspace.service;
 import com.gradproject.yourspace.dao.BookingDAO;
 import com.gradproject.yourspace.dto.BookingDTO;
 import com.gradproject.yourspace.entity.Booking;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,9 +21,11 @@ import java.util.List;
 @Service
 public class BookingServiceImpl implements BookingService {
     private final BookingDAO bookingDAO;
+    private final RoomService roomService;
 
-    public BookingServiceImpl(BookingDAO bookingDAO) {
+    public BookingServiceImpl(BookingDAO bookingDAO, RoomService roomService) {
         this.bookingDAO = bookingDAO;
+        this.roomService = roomService;
     }
 
     @Override
@@ -41,9 +44,17 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     @Transactional
-    public void saveBooking(Booking booking) {
+    public ResponseEntity<String> saveBooking(Booking booking) {
         booking.setId(0);
+        if (!roomService.isRoomAvailable(
+                booking.getRoom().getRoomId(),
+                booking.getDate(),
+                booking.getStartTime(),
+                booking.getEndTime()
+        )) return ResponseEntity.badRequest().body("There is Conflict with another" +
+                " Booking");
         bookingDAO.save(booking);
+        return ResponseEntity.ok("");
         //generate Qr Code
         //send mail
 
@@ -51,8 +62,16 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     @Transactional
-    public void updateBooking(Booking booking) {
+    public ResponseEntity<String> updateBooking(Booking booking) {
+        if (!roomService.isRoomAvailable(
+                booking.getRoom().getRoomId(),
+                booking.getDate(),
+                booking.getStartTime(),
+                booking.getEndTime()
+        )) return ResponseEntity.badRequest().body("There is Conflict with another" +
+                " Booking");
         bookingDAO.save(booking);
+        return ResponseEntity.ok("");
     }
 
     @Override
@@ -105,5 +124,6 @@ public class BookingServiceImpl implements BookingService {
         return bookingDAO.findAllByUserOrderByDate(userId);
 
     }
+
 
 }

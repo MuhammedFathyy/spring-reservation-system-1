@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -17,4 +18,11 @@ public interface BookingDAO extends JpaRepository<Booking, Integer> {
             "where room.room_id = booking.room_id and space.space_id = room.space_id and user.user_id = booking.user_id  and user.user_id =:id order by booking.date DESC ",
             nativeQuery = true)
     List<BookingDTO> findAllByUserOrderByDate(int id);
+
+    @Query(
+            value = "select * from booking b where b.room_id = :roomId and b.date = :date",
+            nativeQuery = true
+    )
+    public List<Booking> findBookingsByRoomAndDate(Integer roomId,
+                                                   LocalDate date);
 }
