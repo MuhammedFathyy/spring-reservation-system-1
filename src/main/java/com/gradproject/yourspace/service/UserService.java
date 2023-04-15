@@ -1,6 +1,7 @@
 package com.gradproject.yourspace.service;
 
 import com.gradproject.yourspace.dto.UserDTO;
+import com.gradproject.yourspace.entity.Booking;
 import com.gradproject.yourspace.entity.User;
 
 import java.util.HashMap;
@@ -14,7 +15,9 @@ public interface UserService {
 
     public void saveUser(User user);
 
-    public void updateUser(int userId , HashMap<String , Object> fields);
+    public void updateUser(int userId, HashMap<String, Object> fields);
 
     public void deleteUser(int id);
+
+    List<Booking> getUserBookings(Integer userId);
 }

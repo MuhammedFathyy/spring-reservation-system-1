@@ -77,11 +77,17 @@ APIs:
 * path variable : userId .
 * logic : return all the data in userDTO,(all the space data except password,requests,booking)
 
-
 9- update profile:
 -------------------
+
 * URL : "localhost:8080/api/user/[userId]"
 * function : update the data of specific user.
 * path variable : userId.
-* logic : the data that we want to modify will be passed as json format in the request body except(email,password,points(modified by the system))
- 
+* logic : the data that we want to modify will be passed as json format in the request body except(
+  email,password,points(modified by the system))
+
+10- View User's Bookings:
+---------------------------
+
+* URL: "localhost:8080/api/user/{userId}/bookings"
+* function: View all bookings of specific user

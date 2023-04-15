@@ -1,7 +1,9 @@
 package com.gradproject.yourspace.controller;
 
 
+import com.gradproject.yourspace.dto.BookingDTO;
 import com.gradproject.yourspace.dto.UserDTO;
+import com.gradproject.yourspace.entity.Booking;
 import com.gradproject.yourspace.entity.User;
 import com.gradproject.yourspace.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +34,17 @@ public class UserController {
 
     @PatchMapping("{userId}")
     public void updateUser(@PathVariable int userId,
-                           @RequestBody HashMap<String , Object> fields)
-    {userService.updateUser(userId , fields);}
+                           @RequestBody HashMap<String, Object> fields) {
+        userService.updateUser(userId, fields);
+    }
 
     @DeleteMapping("{userId}")
-    public void deleteUser(@PathVariable int userId)
-    {
+    public void deleteUser(@PathVariable int userId) {
         userService.deleteUser(userId);
     }
-    
+
+    @GetMapping("{userId}/bookings")
+    public List<Booking> getUserBookings(@PathVariable Integer userId) {
+        return userService.getUserBookings(userId);
+    }
 }

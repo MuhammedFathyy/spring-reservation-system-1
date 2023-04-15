@@ -2,9 +2,11 @@ package com.gradproject.yourspace.service;
 
 import com.gradproject.yourspace.dao.UserDAO;
 import com.gradproject.yourspace.dto.UserDTO;
+import com.gradproject.yourspace.entity.Booking;
 import com.gradproject.yourspace.entity.User;
 
 
+import com.gradproject.yourspace.exception.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -102,5 +104,16 @@ public class UserServiceImpl implements UserService{
 
     @Transactional
     @Override
-    public void deleteUser(int id) { usersDAO.deleteById(id);}
+    public void deleteUser(int id) {
+        usersDAO.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public List<Booking> getUserBookings(Integer userId) {
+        User user = usersDAO.findById(userId).orElse(null);
+        if (user == null) throw new BadRequestException("no user found with " +
+                "id " + userId.intValue());
+        return user.getBookings();
+    }
 }
