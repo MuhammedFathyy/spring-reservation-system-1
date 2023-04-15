@@ -21,12 +21,15 @@ APIs:
 ------------------
 * URL : "_____/bookingId=value"
 * function : cancel booking already submitted.
-* request  body :
-* logic : 
-  1) check if booking can be cancelled.
-  2) cancel booking and send response.
-* response : canceled --> status : ok  , message : successfully cancelled , code : 200.
-             not canceled --> status : error , message : booking can't be canceled.
+* request body :
+* logic :
+    1) check if booking exists
+    2) check if booking can be cancelled (duration left).
+    2) cancel booking and send response.
+* response :
+    * doesn't exist --> status: Bad Request, message: booking with id {id} doesn't exist
+    * canceled --> status : ok , message : successfully cancelled , code : 200.
+    * not canceled --> status : Bad Request , message : booking can't be canceled.
              
 3- Booking History:
 -------------------

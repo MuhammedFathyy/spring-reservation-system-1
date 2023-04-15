@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,12 +28,12 @@ public class BookingController {
     }
 
     @PostMapping()
-    public void saveBooking(@RequestBody Booking booking) {
+    public void saveBooking(@RequestBody @Valid Booking booking) {
         bookingService.saveBooking(booking);
     }
 
     @PutMapping()
-    public void updateBooking(@RequestBody Booking booking) {
+    public void updateBooking(@RequestBody @Valid Booking booking) {
         bookingService.updateBooking(booking);
     }
 

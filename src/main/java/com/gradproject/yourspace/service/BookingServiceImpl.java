@@ -60,13 +60,13 @@ public class BookingServiceImpl implements BookingService {
     public ResponseEntity<String> deleteBooking(int bookingId) {
         Booking booking = bookingDAO.findById(bookingId).orElse(null);
         if (booking == null)
-            throw new RuntimeException("no booking with id " + bookingId);
+            return ResponseEntity.badRequest()
+                    .body("booking with id " + bookingId + " doesn't exist");
 
         LocalDate bookingDate = booking.getDate();
         long daysBetween = ChronoUnit.DAYS.between(LocalDate.now(), bookingDate);
         if (daysBetween <= 1) {
-            return ResponseEntity.badRequest()
-                    .body("Can't cancel booking with id " + bookingId);
+            throw new RuntimeException("can't cancel booking with id " + bookingId);
         }
         bookingDAO.delete(booking);
         return ResponseEntity.ok("Booking canceled");
