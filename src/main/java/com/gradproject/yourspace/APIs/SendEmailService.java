@@ -1,14 +1,18 @@
 package com.gradproject.yourspace.APIs;
 
 
+import com.google.zxing.WriterException;
+import com.gradproject.yourspace.Features.QRCodeGenerator;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
 import com.sendgrid.Response;
 import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
+import com.sendgrid.helpers.mail.objects.Attachments;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
 import com.sendgrid.helpers.mail.objects.Personalization;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,6 +24,7 @@ public class SendEmailService {
 
     @Autowired
     private SendGrid sendGrid;
+
 
     @Value("${sendgrid.from.email}")
     private String fromEmail;
@@ -76,15 +81,24 @@ public class SendEmailService {
             "YourSpaceTeam\n" +
             "\n" ;
 
-    public void sendEmail(String toEmail , String subject , String content) throws IOException {
+    public void sendEmail(String toEmail, String subject, String content, String encodedImage) throws IOException {
         Email from = new Email(fromEmail); // Create an email object for the sender email address
         Email to = new Email(toEmail); // Create an email object for the recipient email address
         Content emailContent = new Content("text/plain", content);
-        Mail mail = new Mail(from,subject,to,emailContent); // Create a Mail object to hold the email message
+        Mail mail = new Mail(from, subject, to, emailContent); // Create a Mail object to hold the email message
 
         Personalization personalization = new Personalization(); // Create a Personalization object to hold the recipient email address
         personalization.addTo(to); // Add the recipient email address to the Personalization object
         mail.addPersonalization(personalization); // Add the Personalization object to the Mail object
+        if (encodedImage != null) {
+            Attachments attachments = new Attachments();
+            attachments.setContent(encodedImage);
+            attachments.setType("image/png");
+            attachments.setFilename("qrCode.png");
+            attachments.setDisposition("attachments");
+            attachments.setContentId("qrcode");
+            mail.addAttachments(attachments);
+        }
 
         //Convert the mail to JSON
         String json = mail.build();

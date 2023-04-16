@@ -84,10 +84,11 @@ public class RequestServiceImpl implements RequestService {
 
         SendEmailService sendEmailService = new SendEmailService();
         sendEmailService.sendEmail("mfathy56734@gmail.com"
-                , "Request for new Space is " +status
+                , "Request for new Space is " + status
                 , "Dear " + request.get().getUser().getFirstName() + "\n"
-                        + ((requestStatus == "accepted")?
-                        sendEmailService.getAcceptanceContentMessage(): sendEmailService.getRejectionContentMessage()));
+                        + ((requestStatus == "accepted") ?
+                        sendEmailService.getAcceptanceContentMessage() : sendEmailService.getRejectionContentMessage())
+                , null);
 
         if(Objects.equals(requestStatus, "accepted")){
             // to be discussed hn3ml ehh hna?
