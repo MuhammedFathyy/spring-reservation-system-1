@@ -2,8 +2,11 @@ package com.gradproject.yourspace.controller;
 
 import com.gradproject.yourspace.entity.Request;
 import com.gradproject.yourspace.service.RequestService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -45,6 +48,17 @@ public class RequestController {
     @PatchMapping("/{id}")
     public void updateRequestPartially(@PathVariable int id, @RequestBody HashMap<String, Object> fields) {
         requestService.updateRequestPartially(id, fields);
+    }
+
+    @PostMapping("/{requestId}")
+    public ResponseEntity<?> requestService(@PathVariable int requestId , @RequestParam String status)
+    {
+        try {
+            requestService.requestCycle(requestId, status);
+            return ResponseEntity.ok("You request has been handeled");
+        }catch (IOException e){
+            return new ResponseEntity<>("Bad request" , HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

@@ -1,14 +1,18 @@
 package com.gradproject.yourspace.service;
 
+import com.gradproject.yourspace.APIs.SendEmailService;
 import com.gradproject.yourspace.dao.RequestDAO;
 import com.gradproject.yourspace.entity.Request;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class RequestServiceImpl implements RequestService {
@@ -66,5 +70,30 @@ public class RequestServiceImpl implements RequestService {
             ReflectionUtils.setField(field, request, value);
         });
         requestDAO.save(request);
+    }
+
+    @Override
+    public void requestCycle(int requestId , String status) throws IOException {
+        Optional<Request> request = requestDAO.findById(requestId);
+        if(!request.isPresent()){
+            throw new RuntimeException();
+        }
+
+        String requestStatus = status.toLowerCase();
+        request.get().setStatus(status);
+
+        SendEmailService sendEmailService = new SendEmailService();
+        sendEmailService.sendEmail("mfathy56734@gmail.com"
+                , "Request for new Space is " +status
+                , "Dear " + request.get().getUser().getFirstName() + "\n"
+                        + ((requestStatus == "accepted")?
+                        sendEmailService.getAcceptanceContentMessage(): sendEmailService.getRejectionContentMessage()));
+
+        if(Objects.equals(requestStatus, "accepted")){
+            // to be discussed hn3ml ehh hna?
+        }
+        else if(Objects.equals(requestStatus , "rejected")){
+            requestDAO.delete(request.get());
+        }
     }
 }
