@@ -65,11 +65,10 @@ public class RatingServiceImpl implements RatingService {
         Rating rating =ratingDAO.findRatingByRatingId(ratingId);
 
         fields.forEach((key,value)->{
-            Field field = ReflectionUtils.findField(Space.class, key);
+            Field field = ReflectionUtils.findField(Rating.class, key);
             field.setAccessible(true);
 
                 ReflectionUtils.setField(field, rating, value);
-
 
         });
         ratingDAO.save(rating);
