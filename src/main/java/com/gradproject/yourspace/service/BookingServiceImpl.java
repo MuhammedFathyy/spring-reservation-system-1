@@ -67,7 +67,7 @@ public class BookingServiceImpl implements BookingService {
         //send mail
         try {
             sendEmailService.sendEmail("mfathy56734@gmail.com", "Test",
-                    "This is test", null);
+                    "This is test", qrCode);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

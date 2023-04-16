@@ -95,7 +95,7 @@ public class SendEmailService {
             attachments.setContent(encodedImage);
             attachments.setType("image/png");
             attachments.setFilename("qrCode.png");
-            attachments.setDisposition("attachments");
+            attachments.setDisposition("attachment");
             attachments.setContentId("qrcode");
             mail.addAttachments(attachments);
         }
