@@ -70,8 +70,9 @@ public class RoomService {
         roomDAO.findById(roomId).orElse(null);
         List<Booking> bookings = bookingDAO.findBookingsByRoomAndDate(roomId, date);
         for (Booking booking : bookings) {
-            if (booking.getStartTime().before(endTime)) return false;
-            if (booking.getEndTime().after(startTime)) return false;
+            if (startTime.after(booking.getEndTime()) || startTime.equals(booking.getEndTime())) {
+            } else if (endTime.before(booking.getStartTime()) || endTime.equals(booking.getStartTime())) {
+            } else return false;
         }
         return true;
     }
