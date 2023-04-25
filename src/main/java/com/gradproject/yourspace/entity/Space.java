@@ -68,6 +68,8 @@ public class Space {
 	@JsonIgnore
 	private List<Rating> ratings;
 
+	private byte[] image;
+
 
 	@OneToMany(mappedBy = "space",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
 	@OnDelete(action = OnDeleteAction.CASCADE)
@@ -78,10 +80,9 @@ public class Space {
 
 	}
 
-	public Space(String address, String district,  List<Image>images, int roomNumbers, String description, String name, String contactNumber, double minPrice, double maxPrice, Time startTime, Time endTime, boolean drinks, String owner, boolean outdoors, double ratingAverage, List<Room> rooms, List<Rating> ratings) {
+	public Space(String address, String district, int roomNumbers, String description, String name, String contactNumber, double minPrice, double maxPrice, Time startTime, Time endTime, boolean drinks, String owner, boolean outdoors, double ratingAverage, List<Room> rooms, List<Rating> ratings, byte[] image, List<Image> images) {
 		this.address = address;
 		this.district = district;
-		this.images = images;
 		this.roomNumbers = roomNumbers;
 		this.description = description;
 		this.name = name;
@@ -96,6 +97,8 @@ public class Space {
 		this.ratingAverage = ratingAverage;
 		this.rooms = rooms;
 		this.ratings = ratings;
+		this.image = image;
+		this.images = images;
 	}
 
 	public int getSpaceId() {
@@ -253,6 +256,14 @@ public class Space {
 		return ratingAverage;
 	}
 
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
 
 	public void addRoom(Room room){
 		if (rooms==null){
