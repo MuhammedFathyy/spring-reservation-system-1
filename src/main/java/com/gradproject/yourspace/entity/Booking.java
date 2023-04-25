@@ -1,6 +1,7 @@
 package com.gradproject.yourspace.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.micrometer.core.annotation.Counted;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -29,6 +30,10 @@ public class Booking {
     @Column(name = "date")
     @NotNull
     private LocalDate date;
+
+    @NotNull
+    @Column(name = "qr_scan")
+    private boolean qrScan = false;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH,
             CascadeType.REFRESH})
@@ -98,6 +103,14 @@ public class Booking {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean isQrScan() {
+        return qrScan;
+    }
+
+    public void setQrScan(boolean qrScan) {
+        this.qrScan = qrScan;
     }
 
     @Override
