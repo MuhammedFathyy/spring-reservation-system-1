@@ -1,29 +1,70 @@
 package com.gradproject.yourspace.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.sql.Time;
 import java.time.LocalDate;
-import java.util.Date;
 
-public interface BookingDTO {
-    String getUserFirstName();
+public class BookingDTO {
+    private int id;
+    private Time startTime;
+    private Time endTime;
+    private LocalDate date;
+    private Integer roomId;
+    private Integer userId;
 
-    String getUserLastName();
+    public BookingDTO(int id, Time startTime, Time endTime, LocalDate date, Integer roomId, Integer userId) {
+        this.id = id;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.date = date;
+        this.roomId = roomId;
+        this.userId = userId;
+    }
 
-    Time getStartTime();
+    public int getId() {
+        return id;
+    }
 
-    Time getEndTime();
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    LocalDate getBookingDate();
+    public Time getStartTime() {
+        return startTime;
+    }
 
-    String getRoomName();
+    public void setStartTime(Time startTime) {
+        this.startTime = startTime;
+    }
 
-    String getRoomImage();
+    public Time getEndTime() {
+        return endTime;
+    }
 
-    float getRoomPrice();
+    public void setEndTime(Time endTime) {
+        this.endTime = endTime;
+    }
 
-    String getSpaceName();
+    public LocalDate getDate() {
+        return date;
+    }
 
-    String getSpaceAddress();
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public Integer getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(Integer roomId) {
+        this.roomId = roomId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 }
