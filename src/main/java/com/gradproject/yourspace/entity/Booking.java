@@ -52,15 +52,6 @@ public class Booking {
         this.room = room;
     }
 
-    public Booking(int id, Time startTime, Time endTime, LocalDate date, Room room, User user) {
-        this.id = id;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.date = date;
-        this.room = room;
-        this.user = user;
-    }
-
     public int getId() {
         return id;
     }
