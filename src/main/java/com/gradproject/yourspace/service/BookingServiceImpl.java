@@ -3,8 +3,11 @@ package com.gradproject.yourspace.service;
 import com.gradproject.yourspace.APIs.SendEmailService;
 import com.gradproject.yourspace.Features.QRCodeHandler;
 import com.gradproject.yourspace.dao.BookingDAO;
+import com.gradproject.yourspace.dao.UserDAO;
 import com.gradproject.yourspace.dto.BookingDTO;
 import com.gradproject.yourspace.entity.Booking;
+import com.gradproject.yourspace.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,12 +29,15 @@ public class BookingServiceImpl implements BookingService {
     private final BookingDAO bookingDAO;
     private final RoomService roomService;
     private final QRCodeHandler qrCodeHandler;
+    private final UserDAO userDAO;
     private final SendEmailService sendEmailService;
 
-    public BookingServiceImpl(BookingDAO bookingDAO, RoomService roomService, QRCodeHandler qrCodeHandler, SendEmailService sendEmailService) {
+   @Autowired
+    public BookingServiceImpl(BookingDAO bookingDAO, RoomService roomService, QRCodeHandler qrCodeHandler, UserDAO userDAO, SendEmailService sendEmailService) {
         this.bookingDAO = bookingDAO;
         this.roomService = roomService;
         this.qrCodeHandler = qrCodeHandler;
+        this.userDAO = userDAO;
         this.sendEmailService = sendEmailService;
     }
 
@@ -62,12 +68,17 @@ public class BookingServiceImpl implements BookingService {
                 " Booking");
         bookingDAO.save(booking);
 
+        User user= booking.getUser();
+        int id=user.getUserId();
+        User user1= userDAO.findUserByUserId(id);
+        String email= user1.getEmail();
+
         //generate Qr Code
         String qrCode = qrCodeHandler.getQRCode(booking);
         //send mail
         try {
-            sendEmailService.sendEmail("mfathy56734@gmail.com", "Test",
-                    "This is test", qrCode);
+            sendEmailService.sendEmail(email, "Test",
+                    "hi", qrCode);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
