@@ -61,10 +61,10 @@ public class BookingController {
     }
 
     @GetMapping("bookingsHistory/{userId}")
-    // TODO: mod and push
     public List<BookingDTO> getBookingsHistory(@PathVariable int userId) {
-        return bookingService.getBookingsHistory(userId);
+        return bookingService.getBookingsHistory(userId)
+                .stream()
+                .map(booking -> modelMapper.map(booking, BookingDTO.class))
+                .collect(Collectors.toList());
     }
-
-
 }

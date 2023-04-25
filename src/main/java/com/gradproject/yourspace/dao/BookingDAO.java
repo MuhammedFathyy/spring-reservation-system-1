@@ -20,6 +20,12 @@ public interface BookingDAO extends JpaRepository<Booking, Integer> {
     List<BookingDTO> findAllByUserOrderByDate(int id);
 
     @Query(
+            value = "select * from Booking b where b.user_id = :id order by b.date desc, b.start_time asc ",
+            nativeQuery = true
+    )
+    public List<Booking> findBookingsByUserSortedByDate(int id);
+
+    @Query(
             value = "select * from booking b where b.room_id = :roomId and b.date = :date",
             nativeQuery = true
     )

@@ -4,7 +4,6 @@ import com.gradproject.yourspace.APIs.SendEmailService;
 import com.gradproject.yourspace.Features.QRCodeHandler;
 import com.gradproject.yourspace.dao.BookingDAO;
 import com.gradproject.yourspace.dao.UserDAO;
-import com.gradproject.yourspace.dto.BookingDTO;
 import com.gradproject.yourspace.entity.Booking;
 import com.gradproject.yourspace.entity.User;
 import com.gradproject.yourspace.exception.BadRequestException;
@@ -147,9 +146,8 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     @Transactional
-    public List<BookingDTO> getBookingsHistory(int userId) {
-        return bookingDAO.findAllByUserOrderByDate(userId);
-
+    public List<Booking> getBookingsHistory(int userId) {
+        return bookingDAO.findBookingsByUserSortedByDate(userId);
     }
 
 
