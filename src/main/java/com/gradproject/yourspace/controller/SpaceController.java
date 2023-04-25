@@ -24,7 +24,9 @@ public class SpaceController {
 
     @GetMapping()
     public List<SpaceDTO> getSpaces(){
-        return spaceService.getSpaces();
+       return  spaceService.getSpaces();
+
+
     }
 
     @GetMapping("allspaces/{pageNo}")

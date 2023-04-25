@@ -94,7 +94,7 @@ public class SpaceServiceImpl implements SpaceService{
         //the sorting should be based on the location
         Pageable pageable = PageRequest.of(page, 8, Sort.by("spaceId").ascending());
         List< Space>spaces= spaceDAO.findAll(pageable).getContent();
-        return  spaces.stream().map(this::convertEntityToDto).collect(Collectors.toList());
+          return spaces.stream().map(this::convertEntityToDto).collect(Collectors.toList());
     }
     private AllSpacesDTO convertEntityToDto(Space space){
 

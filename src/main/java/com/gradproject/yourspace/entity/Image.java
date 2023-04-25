@@ -8,11 +8,12 @@ import javax.persistence.*;
 public class Image {
 
 
-    public Image( String name,byte[] imageDate, String type) {
-
-        this.imageDate = imageDate;
+    public Image(byte[] imageData, String type, String name, Space space, Room room) {
+        this.imageData = imageData;
         this.type = type;
-        this.name=name;
+        this.name = name;
+        this.space = space;
+        this.room = room;
     }
 
     public Image() {
@@ -23,13 +24,20 @@ public class Image {
     private int imageId;
     @Column(name="image_data",length = 1000)
     @Lob
-    private byte[] imageDate;
+    private byte[] imageData;
 
     @Column(name="type")
     private String type;
 
     @Column(name="name",unique = true)
     private String name;
+
+    @ManyToOne
+    @JoinColumn (name="spaceId")
+    private Space space;
+    @ManyToOne
+    @JoinColumn (name="roomId")
+    private Room room;
 
     public int getImageId() {
         return imageId;
@@ -51,12 +59,12 @@ public class Image {
         this.type = type;
     }
 
-    public byte[] getImageDate() {
-        return imageDate;
+    public byte[] getImageData() {
+        return imageData;
     }
 
-    public void setImageDate(byte[] imageDate) {
-        this.imageDate = imageDate;
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
     }
 
     public String getName() {
@@ -65,5 +73,21 @@ public class Image {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Space getSpace() {
+        return space;
+    }
+
+    public void setSpace(Space space) {
+        this.space = space;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
     }
 }

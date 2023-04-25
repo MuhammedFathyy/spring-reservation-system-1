@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ImageService {
 
-    public void uploadImage(MultipartFile file) throws IOException;
+    public void uploadImage(MultipartFile file,int spaceId, int roomId) throws IOException;
     public List<byte[]> getImages();
     public byte[] getImageById(int id);
     public String deleteImageById(int id);

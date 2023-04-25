@@ -31,8 +31,6 @@ public class Room {
 	@Column(name = "price")
 	private float price;
 
-	@Column(name = "image")
-	private String image;
 
 	@ManyToOne
 	@JoinColumn(name = "space_id")
@@ -43,17 +41,23 @@ public class Room {
 	@JsonIgnore
 	private List<Booking> bookings;
 
+
+	@OneToMany(mappedBy = "room",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	private List<Image> images;
+
 	public Room() {
 		super();
 	}
 
-	public Room(int number, String name, String activity, String type, float price, String image, Space space) {
+	public Room(int number, String name, String activity, String type, float price, List<Image> images, Space space) {
 		this.number = number;
 		this.name = name;
 		this.activity = activity;
 		this.type = type;
 		this.price = price;
-		this.image = image;
+		this.images = images;
 		this.space = space;
 	}
 
@@ -105,12 +109,16 @@ public class Room {
 		this.price = price;
 	}
 
-	public String getImage() {
-		return image;
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
 	}
 
-	public void setImage(String image) {
-		this.image = image;
+	public List<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Image> images) {
+		this.images = images;
 	}
 
 	public List<Booking> getBookings() {
@@ -126,6 +134,10 @@ public class Room {
 		bookings.add(booking);
 	}
 
+	public void addImages(Image image) {
+		if (images == null) images = new ArrayList<>();
+		images.add(image);
+	}
 	public Space getSpace() {
 		return space;
 	}
@@ -143,7 +155,7 @@ public class Room {
 				", activity='" + activity + '\'' +
 				", type='" + type + '\'' +
 				", price=" + price +
-				", image='" + image + '\'' +
+				", image='" + images + '\'' +
 				'}';
 	}
 }

@@ -1,5 +1,6 @@
 package com.gradproject.yourspace.dto;
 
+import com.gradproject.yourspace.entity.Image;
 import com.gradproject.yourspace.entity.Rating;
 
 import java.sql.Time;
@@ -9,7 +10,8 @@ public class SpaceDTO {
        private int spaceId;
        private String address;
        private String district;
-       private String images;
+
+       private List<Image>images;
        private int roomNumbers;
        private String description;
        private String name;
@@ -27,7 +29,7 @@ public class SpaceDTO {
     public SpaceDTO() {
     }
 
-    public SpaceDTO(int spaceId, String address, String district, String images, int roomNumbers, String description, String name, String contactNumber, double minPrice, double maxPrice, Time startTime, Time endTime, Boolean drinks, String owner, Boolean outdoors, double ratingAverage, List<Rating> ratingList) {
+    public SpaceDTO(int spaceId, String address, String district, List<Image>images, int roomNumbers, String description, String name, String contactNumber, double minPrice, double maxPrice, Time startTime, Time endTime, Boolean drinks, String owner, Boolean outdoors, double ratingAverage, List<Rating> ratingList) {
         this.spaceId = spaceId;
         this.address = address;
         this.district = district;
@@ -72,11 +74,11 @@ public class SpaceDTO {
         this.district = district;
     }
 
-    public String getImages() {
+    public List<Image> getImages() {
         return images;
     }
 
-    public void setImages(String images) {
+    public void setImages(List<Image> images) {
         this.images = images;
     }
 

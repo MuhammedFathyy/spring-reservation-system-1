@@ -27,8 +27,7 @@ public class Space {
 	@NotNull
 	@Column(name = "district")
 	private String district;
-	@Column(name = "images")
-	private String images;
+
 	@Column(name = "room_numbers")
 	private int roomNumbers;
 
@@ -70,12 +69,16 @@ public class Space {
 	private List<Rating> ratings;
 
 
+	@OneToMany(mappedBy = "space",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	private List<Image> images;
 
 	public Space() {
 
 	}
 
-	public Space(String address, String district,  String images, int roomNumbers, String description, String name, String contactNumber, double minPrice, double maxPrice, Time startTime, Time endTime, boolean drinks, String owner, boolean outdoors, double ratingAverage, List<Room> rooms, List<Rating> ratings) {
+	public Space(String address, String district,  List<Image>images, int roomNumbers, String description, String name, String contactNumber, double minPrice, double maxPrice, Time startTime, Time endTime, boolean drinks, String owner, boolean outdoors, double ratingAverage, List<Room> rooms, List<Rating> ratings) {
 		this.address = address;
 		this.district = district;
 		this.images = images;
@@ -120,12 +123,11 @@ public class Space {
 	}
 
 
-
-	public String getImages() {
+	public List<Image> getImages() {
 		return images;
 	}
 
-	public void setImages(String images) {
+	public void setImages(List<Image> images) {
 		this.images = images;
 	}
 
@@ -264,5 +266,12 @@ public class Space {
 			this.ratings=new ArrayList<>();
 		}
 		else ratings.add(rating);
+	}
+
+	public void addImages(Image image){
+		if(this.images==null){
+			this.images=new ArrayList<>();
+		}
+		else images.add(image);
 	}
 }

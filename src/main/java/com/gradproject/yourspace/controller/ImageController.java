@@ -46,7 +46,7 @@ public class ImageController {
     }
 
     @PostMapping()
-    public void addImage(@RequestParam("image") MultipartFile file) throws IOException {
-        imageService.uploadImage(file);
+    public void addImage(@RequestParam("image") MultipartFile file,@RequestParam("spaceId") int SpaceId,@RequestParam("roomId")int roomId) throws IOException {
+        imageService.uploadImage(file,SpaceId,roomId);
     }
 }

@@ -1,10 +1,14 @@
 package com.gradproject.yourspace.dto;
 
+import com.gradproject.yourspace.entity.Image;
+
+import java.util.List;
+
 public class AllSpacesDTO {
 
 private String name;
 private String address;
-private String images;
+private List<Image> images;
 
 private double ratingAverage;
 private int spaceId;
@@ -14,7 +18,7 @@ private int spaceId;
     public AllSpacesDTO() {
     }
 
-    public AllSpacesDTO(String name, String address, String images, double ratingAverage, int spaceId) {
+    public AllSpacesDTO(String name, String address, List<Image>images, double ratingAverage, int spaceId) {
         this.name = name;
         this.address = address;
         this.images = images;
@@ -38,14 +42,13 @@ private int spaceId;
         this.address = address;
     }
 
-    public String getImages() {
+    public List<Image> getImages() {
         return images;
     }
 
-    public void setImages(String images) {
+    public void setImages(List<Image> images) {
         this.images = images;
     }
-
 
     public double getRatingAverage() {
         return ratingAverage;

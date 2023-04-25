@@ -1,7 +1,11 @@
 package com.gradproject.yourspace.service;
 
 import com.gradproject.yourspace.dao.ImageDAO;
+import com.gradproject.yourspace.dao.RoomDAO;
+import com.gradproject.yourspace.dao.SpaceDAO;
 import com.gradproject.yourspace.entity.Image;
+import com.gradproject.yourspace.entity.Room;
+import com.gradproject.yourspace.entity.Space;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,13 +22,19 @@ import java.util.zip.Inflater;
 public class ImageServiceImpl implements ImageService {
 
     private ImageDAO imageDAO;
+    private SpaceDAO spaceDAO;
+    private RoomDAO roomDAO;
+
 
 
     @Autowired
-
-    public ImageServiceImpl(ImageDAO imageDAO) {
+    public ImageServiceImpl(ImageDAO imageDAO, SpaceDAO spaceDAO, RoomDAO roomDAO) {
         this.imageDAO = imageDAO;
+        this.spaceDAO = spaceDAO;
+        this.roomDAO = roomDAO;
     }
+
+
 
     public static byte[] compressImage(byte[] data) {
         Deflater deflater = new Deflater();
@@ -67,14 +77,21 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     @Transactional
-    public void uploadImage(MultipartFile file) throws IOException {
-
+    public void uploadImage(MultipartFile file,int SpaceId,int roomId) throws IOException {
         System.out.println(file);
         Image image= new Image();
         image.setType(file.getContentType());
         image.setName(file.getOriginalFilename());
-       image.setImageDate((file.getBytes()));
-        image.setImageId(0);
+       image.setImageData((file.getBytes()));
+       Space space = spaceDAO.findSpaceBySpaceId(SpaceId);
+       Room room=roomDAO.getRoomByRoomId(roomId);
+       if(space!=null){
+           image.setSpace(space);
+       }
+       if(room!=null){
+           image.setRoom(room);
+       }
+//        image.setImageId(0);
         imageDAO.save(image);
 
     }
@@ -86,7 +103,7 @@ public class ImageServiceImpl implements ImageService {
         List<byte[]> images = new ArrayList<>();
         for(int i=0; i< ComImages.size();i++){
 
-            byte[] image= decompressImage(ComImages.get(i).getImageDate());
+            byte[] image= ComImages.get(i).getImageData();
            images.add(image);
 
         }
@@ -97,7 +114,7 @@ public class ImageServiceImpl implements ImageService {
     @Transactional
     public byte[] getImageById(int id) {
        Image image = imageDAO.findImagesByImageId(id);
-       return image.getImageDate();
+       return image.getImageData();
     }
 
     @Override
@@ -121,7 +138,7 @@ public class ImageServiceImpl implements ImageService {
     public void updateImageById(int imageId,MultipartFile file) throws IOException {
 
         Image image=imageDAO.findImagesByImageId(imageId);
-        image.setImageDate(file.getBytes());
+        image.setImageData(file.getBytes());
         imageDAO.save(image);
 
     }
