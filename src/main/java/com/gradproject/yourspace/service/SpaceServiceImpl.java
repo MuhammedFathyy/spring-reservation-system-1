@@ -89,10 +89,10 @@ public class SpaceServiceImpl implements SpaceService{
     @Override
     @Transactional
 
-    public List<AllSpacesDTO> getLimitedSpaces(int page){
+    public List<AllSpacesDTO> getLimitedSpaces(int pageNo, int pageSize){
 
         //the sorting should be based on the location
-        Pageable pageable = PageRequest.of(page, 8, Sort.by("spaceId").ascending());
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("spaceId").ascending());
         List< Space>spaces= spaceDAO.findAll(pageable).getContent();
           return spaces.stream().map(this::convertEntityToDto).collect(Collectors.toList());
     }
@@ -128,5 +128,13 @@ public class SpaceServiceImpl implements SpaceService{
         spaceDTO.setRoomNumbers(space.getRoomNumbers());
         spaceDTO.setDistrict(space.getDistrict());
         return spaceDTO;
+    }
+
+    @Override
+    public List<SpaceDTO> getSpacesData(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("spaceId").ascending());
+        List< Space>spaces= spaceDAO.findAll(pageable).getContent();
+        return spaces.stream().map(this::convertSpaceDTO).collect(Collectors.toList());
+
     }
 }

@@ -13,6 +13,7 @@ public interface SpaceService {
     public SpaceDTO getSpaceById(int id);
     public String deleteSpaceById(int id);
    public void updateSpaceByFields(int spaceId, Map<String, Object> fields);
-    public List<AllSpacesDTO> getLimitedSpaces(int page);
+    public List<AllSpacesDTO> getLimitedSpaces(int pageNo,int pageSize);
 
+    public List<SpaceDTO> getSpacesData(int pageNo,int pageSize);
 }

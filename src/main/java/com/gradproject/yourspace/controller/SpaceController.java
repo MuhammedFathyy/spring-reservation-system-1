@@ -29,10 +29,16 @@ public class SpaceController {
 
     }
 
-    @GetMapping("allspaces/{pageNo}")
-    public List<AllSpacesDTO> getLimitedSpaces(@PathVariable int pageNo){
-        return spaceService.getLimitedSpaces(pageNo);
+    @GetMapping("allspaces/{pageNo}/{pageSize}")
+    public List<AllSpacesDTO> getLimitedSpaces(@PathVariable int pageNo,@PathVariable int pageSize){
+        return spaceService.getLimitedSpaces(pageNo,pageSize);
 
+
+    }
+
+    @GetMapping("alldata/{pageNo}/{pageSize}")
+    public List <SpaceDTO> getAllData(@PathVariable int pageNo,@PathVariable int pageSize){
+        return spaceService.getSpacesData(pageNo,pageSize);
 
     }
     @DeleteMapping("{spaceId}")
