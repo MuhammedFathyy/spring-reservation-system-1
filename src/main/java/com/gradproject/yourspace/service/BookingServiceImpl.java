@@ -7,6 +7,7 @@ import com.gradproject.yourspace.dao.UserDAO;
 import com.gradproject.yourspace.dto.BookingDTO;
 import com.gradproject.yourspace.entity.Booking;
 import com.gradproject.yourspace.entity.User;
+import com.gradproject.yourspace.exception.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -52,7 +53,7 @@ public class BookingServiceImpl implements BookingService {
     public Booking findById(int bookId) {
         return bookingDAO.findById(
                 Integer.valueOf(bookId)
-        ).get();
+        ).orElseThrow(() -> new BadRequestException("Entity not found"));
     }
 
     @Override
