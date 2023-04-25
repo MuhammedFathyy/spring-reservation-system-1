@@ -111,7 +111,6 @@ public class SpaceServiceImpl implements SpaceService{
         SpaceDTO spaceDTO= new SpaceDTO();
         spaceDTO.setName(space.getName());
         spaceDTO.setAddress(space.getAddress());
-        spaceDTO.setImages(space.getImages());
         spaceDTO.setRatingAverage(space.getRatingAverage());
         spaceDTO.setSpaceId(space.getSpaceId());
         spaceDTO.setRatingList(space.getRatings());
@@ -124,9 +123,10 @@ public class SpaceServiceImpl implements SpaceService{
         spaceDTO.setMinPrice(space.getMinPrice());
         spaceDTO.setOutdoors(space.isOutdoors());
         spaceDTO.setOwner(space.getOwner());
-        spaceDTO.setImages(space.getImages());
         spaceDTO.setRoomNumbers(space.getRoomNumbers());
         spaceDTO.setDistrict(space.getDistrict());
+        spaceDTO.setImages(space.getImages());
+
         return spaceDTO;
     }
 
