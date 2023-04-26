@@ -4,7 +4,9 @@ import com.gradproject.yourspace.dao.BookingDAO;
 import com.gradproject.yourspace.dao.RoomDAO;
 import com.gradproject.yourspace.entity.Booking;
 import com.gradproject.yourspace.entity.Room;
+import com.gradproject.yourspace.exception.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
@@ -35,19 +37,24 @@ public class RoomService {
 
     @Transactional
     public Room getRoom(Integer id) {
-        return roomDAO.getRoomByRoomId(id);
+
+        return roomDAO.findById(
+                Integer.valueOf(id)
+        ).orElseThrow(() -> new BadRequestException("Entity not found"));
+
     }
 
     @Transactional
-    public void saveRoom(Room room) {
-
+    public ResponseEntity<String> saveRoom(Room room) {
         room.setRoomId(0);
         roomDAO.save(room);
+        return ResponseEntity.ok("");
     }
 
     @Transactional
-    public void deleteRoom(Integer id) {
+    public ResponseEntity <String> deleteRoom(Integer id) {
         roomDAO.deleteRoomByRoomId(id);
+        return ResponseEntity.ok("");
     }
 
 
@@ -64,6 +71,7 @@ public class RoomService {
         roomDAO.save(room);
 
     }
+
 
     public boolean isRoomAvailable(Integer roomId, LocalDate date, Time startTime,
                                    Time endTime) {
