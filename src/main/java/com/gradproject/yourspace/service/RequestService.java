@@ -20,5 +20,7 @@ public interface RequestService {
 
     void updateRequestPartially(int id, HashMap<String, Object> fields);
 
-    void requestCycle(int requestId , String status) throws IOException;
+    void requestCycle(int requestId, String status) throws IOException;
+
+    List<Request> getRequestsByUserID(int userId);
 }

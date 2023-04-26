@@ -90,11 +90,16 @@ public class RequestServiceImpl implements RequestService {
                         sendEmailService.getAcceptanceContentMessage() : sendEmailService.getRejectionContentMessage())
                 , null);
 
-        if(Objects.equals(requestStatus, "accepted")){
+        if (Objects.equals(requestStatus, "accepted")) {
             // to be discussed hn3ml ehh hna?
-        }
-        else if(Objects.equals(requestStatus , "rejected")){
+        } else if (Objects.equals(requestStatus, "rejected")) {
             requestDAO.delete(request.get());
         }
+    }
+
+    @Override
+    @Transactional
+    public List<Request> getRequestsByUserID(int userId) {
+        return requestDAO.getRequestsByUserID(userId);
     }
 }

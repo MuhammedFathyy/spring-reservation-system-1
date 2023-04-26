@@ -1,22 +1,20 @@
 package com.gradproject.yourspace.dto;
 
-import com.gradproject.yourspace.entity.User;
+import javax.validation.constraints.NotNull;
 
 public class RequestDTO {
     private int requestId;
+    @NotNull
     private String name;
+    @NotNull
     private String status = "pending";
+    @NotNull
     private String address;
+    @NotNull
     private int noOfRooms;
-    private User user;
-
-    public RequestDTO(String name, String status, String address, int noOfRooms, User user) {
-        this.name = name;
-        this.status = status;
-        this.address = address;
-        this.noOfRooms = noOfRooms;
-        this.user = user;
-    }
+    @NotNull
+    private int userId;
+    
 
     public int getRequestId() {
         return requestId;
@@ -58,11 +56,11 @@ public class RequestDTO {
         this.noOfRooms = noOfRooms;
     }
 
-    public User getUser() {
-        return user;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }
