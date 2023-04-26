@@ -13,10 +13,9 @@ public class RoomDTO {
     @NotNull
     private String name;
 
-    @NotNull
+
     private String activity;
 
-    @NotNull
     private String type;
 
     @NotNull
