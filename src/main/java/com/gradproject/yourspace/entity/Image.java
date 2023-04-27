@@ -33,10 +33,10 @@ public class Image {
     private String name;
 
     @ManyToOne
-    @JoinColumn (name="spaceId")
+    @JoinColumn (name="space_id")
     private Space space;
     @ManyToOne
-    @JoinColumn (name="roomId")
+    @JoinColumn (name="room_id")
     private Room room;
 
     public int getImageId() {

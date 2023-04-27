@@ -12,7 +12,7 @@ public class ImageDTO {
 
     }
 
-    
+
 
     public byte[] getImageData() {
         return imageData;
