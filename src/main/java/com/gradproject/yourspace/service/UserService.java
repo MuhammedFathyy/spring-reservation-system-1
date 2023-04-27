@@ -11,7 +11,7 @@ public interface UserService {
 
     public List<User> getUsers();
 
-    public UserDTO getUser(int id);
+    public User getUser(int id);
 
     public void saveUser(User user);
 
