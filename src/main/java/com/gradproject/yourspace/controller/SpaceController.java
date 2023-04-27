@@ -5,11 +5,13 @@ import com.gradproject.yourspace.dto.AllSpacesDTO;
 import com.gradproject.yourspace.dto.SpaceDTO;
 import com.gradproject.yourspace.entity.Space;
 import com.gradproject.yourspace.service.SpaceService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/spaces")
@@ -17,28 +19,36 @@ public class SpaceController {
     
     @Autowired
     private SpaceService spaceService;
-    public SpaceController(SpaceService spaceService1){
+    @Autowired
+    private ModelMapper modelMapper;
 
-        this.spaceService=spaceService1;
+    public SpaceController(SpaceService spaceService, ModelMapper modelMapper) {
+        this.spaceService = spaceService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping()
     public List<SpaceDTO> getSpaces(){
-       return  spaceService.getSpaces();
-
+      return  spaceService.getSpaces() .stream()
+              .map(space -> modelMapper.map(space, SpaceDTO.class))
+              .collect(Collectors.toList());
 
     }
 
     @GetMapping("allspaces/{pageNo}/{pageSize}")
     public List<AllSpacesDTO> getLimitedSpaces(@PathVariable int pageNo,@PathVariable int pageSize){
-        return spaceService.getLimitedSpaces(pageNo,pageSize);
+        return spaceService.getPageableSpace(pageNo,pageSize)
+                .stream().map(space->modelMapper.map(space, AllSpacesDTO.class))
+                .collect(Collectors.toList());
 
 
     }
 
     @GetMapping("alldata/{pageNo}/{pageSize}")
     public List <SpaceDTO> getAllData(@PathVariable int pageNo,@PathVariable int pageSize){
-        return spaceService.getSpacesData(pageNo,pageSize);
+       return  spaceService.getPageableSpace(pageNo,pageSize)
+                .stream().map(space->modelMapper.map(space,SpaceDTO.class))
+                .collect(Collectors.toList());
 
     }
     @DeleteMapping("{spaceId}")
@@ -48,7 +58,10 @@ public class SpaceController {
     }
     @GetMapping("{spaceId}")
     public SpaceDTO getSpace(@PathVariable int spaceId){
-    return spaceService.getSpaceById(spaceId);
+
+       Space space= spaceService.getSpaceById(spaceId);
+       return modelMapper.map(space,SpaceDTO.class);
+
     }
 
     @PostMapping()

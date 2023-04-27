@@ -1,29 +1,34 @@
 package com.gradproject.yourspace.dto;
 
-import com.gradproject.yourspace.entity.Image;
-
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class AllSpacesDTO {
+    @NotNull
+    private String name;
+    @NotNull
+    private String address;
 
-private String name;
-private String address;
-private List<Image> images;
+    @NotNull
+    private double ratingAverage;
+    @NotNull
+    private int spaceId;
 
-private double ratingAverage;
-private int spaceId;
+    @NotNull
+     private List<ImageDTO> images;
+
 
 
 
     public AllSpacesDTO() {
     }
 
-    public AllSpacesDTO(String name, String address, List<Image>images, double ratingAverage, int spaceId) {
+    public AllSpacesDTO(String name, String address, double ratingAverage, int spaceId, List<ImageDTO> images) {
         this.name = name;
         this.address = address;
-        this.images = images;
         this.ratingAverage = ratingAverage;
         this.spaceId = spaceId;
+        this.images = images;
     }
 
     public String getName() {
@@ -42,14 +47,6 @@ private int spaceId;
         this.address = address;
     }
 
-    public List<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(List<Image> images) {
-        this.images = images;
-    }
-
     public double getRatingAverage() {
         return ratingAverage;
     }
@@ -65,5 +62,13 @@ private int spaceId;
 
     public void setSpaceId(int spaceId) {
         this.spaceId = spaceId;
+    }
+
+    public List<ImageDTO> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ImageDTO> images) {
+        this.images = images;
     }
 }
