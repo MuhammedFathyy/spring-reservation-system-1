@@ -24,7 +24,7 @@ public class RoomDTO {
     @NotNull
     private Integer spaceId;
 
-    private List<Integer> imageId;
+    private List<ImageDTO> images;
 
     public Integer getId() {
         return id;
@@ -82,12 +82,11 @@ public class RoomDTO {
         this.spaceId = spaceId;
     }
 
-    public List<Integer> getImageId() {
-        return imageId;
+    public List<ImageDTO> getImages() {
+        return images;
     }
 
-    public void setImageId(List<Integer> imageId) {
-        this.imageId = imageId;
+    public void setImages(List<ImageDTO> images) {
+        this.images = images;
     }
-
 }

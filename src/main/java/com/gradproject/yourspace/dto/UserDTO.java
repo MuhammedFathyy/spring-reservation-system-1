@@ -1,46 +1,49 @@
 
 package com.gradproject.yourspace.dto;
  import com.fasterxml.jackson.annotation.JsonFormat;
+
+ import javax.validation.constraints.NotNull;
  import java.util.Date;
 
 public class UserDTO {
 
+
+    @NotNull
     private int userId;
 
+    @NotNull
     private String email;
 
+    @NotNull
     private String firstName;
 
+
+    @NotNull
     private String lastName;
 
+    @NotNull
     private String mobileNo;
 
+    @NotNull
     private String address;
 
+    @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date birthDate;
 
+    @NotNull
     private String bio;
 
+    @NotNull
     private int points;
 
+    @NotNull
     private String picture;
 
     public UserDTO() {
     }
 
-    public UserDTO(int userId, String email, String firstName, String lastName, String mobileNo, String address, Date birthDate, String bio, int points, String picture) {
-        this.userId = userId;
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.mobileNo = mobileNo;
-        this.address = address;
-        this.birthDate = birthDate;
-        this.bio = bio;
-        this.points = points;
-        this.picture = picture;
-    }
+
 
     public int getUserId() {
         return userId;

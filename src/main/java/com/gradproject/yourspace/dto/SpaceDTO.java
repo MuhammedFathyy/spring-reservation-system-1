@@ -54,25 +54,7 @@ public class SpaceDTO {
     public SpaceDTO() {
     }
 
-    public SpaceDTO(int spaceId, String address, String district, int roomNumbers, String description, String name, String contactNumber, double minPrice, double maxPrice, Time startTime, Time endTime, Boolean drinks, String owner, Boolean outdoors, double ratingAverage, List<ImageDTO> images, List<RatingDTO> ratings) {
-        this.spaceId = spaceId;
-        this.address = address;
-        this.district = district;
-        this.roomNumbers = roomNumbers;
-        this.description = description;
-        this.name = name;
-        this.contactNumber = contactNumber;
-        this.minPrice = minPrice;
-        this.maxPrice = maxPrice;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.drinks = drinks;
-        this.owner = owner;
-        this.outdoors = outdoors;
-        this.ratingAverage = ratingAverage;
-        this.images = images;
-        this.ratings = ratings;
-    }
+
 
     public int getSpaceId() {
         return spaceId;

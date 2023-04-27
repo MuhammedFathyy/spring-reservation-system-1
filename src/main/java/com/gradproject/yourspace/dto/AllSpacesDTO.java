@@ -23,13 +23,7 @@ public class AllSpacesDTO {
     public AllSpacesDTO() {
     }
 
-    public AllSpacesDTO(String name, String address, double ratingAverage, int spaceId, List<ImageDTO> images) {
-        this.name = name;
-        this.address = address;
-        this.ratingAverage = ratingAverage;
-        this.spaceId = spaceId;
-        this.images = images;
-    }
+
 
     public String getName() {
         return name;
