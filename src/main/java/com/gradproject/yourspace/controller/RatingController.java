@@ -54,4 +54,11 @@ public class RatingController {
     public void addRating(@RequestBody Rating rating){
         ratingService.saveRating(rating);
     }
+
+    @GetMapping("space/{spaceId}")
+    public List<RatingDTO> getRatingBySpaceId(@PathVariable int spaceId){
+     return ratingService.getRatingBySpaceId(spaceId).stream()
+             .map(rating -> modelMapper.map(rating,RatingDTO.class))
+             .collect(Collectors.toList());
+    }
 }

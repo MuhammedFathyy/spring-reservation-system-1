@@ -11,4 +11,6 @@ public interface RatingService {
     public Rating getRatingById(int id);
     public void deleteRatingById(int id);
     public void updateRatingByFields(int ratingId, Map<String, Object> fields);
+
+    List<Rating> getRatingBySpaceId(int spaceId);
 }

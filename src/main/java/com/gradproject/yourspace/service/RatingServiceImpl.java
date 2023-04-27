@@ -74,4 +74,9 @@ public class RatingServiceImpl implements RatingService {
         ratingDAO.save(rating);
 
     }
+
+    @Override
+    public List<Rating> getRatingBySpaceId(int spaceId) {
+        return ratingDAO.findRatingBySpaceId(spaceId);
+    }
 }
