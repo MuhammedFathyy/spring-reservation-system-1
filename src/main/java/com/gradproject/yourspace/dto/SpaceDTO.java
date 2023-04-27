@@ -1,39 +1,63 @@
 package com.gradproject.yourspace.dto;
 
-import com.gradproject.yourspace.entity.Image;
-import com.gradproject.yourspace.entity.Rating;
-
+import javax.validation.constraints.NotNull;
 import java.sql.Time;
 import java.util.List;
 
 public class SpaceDTO {
-       private int spaceId;
-       private String address;
-       private String district;
 
-       private List<Image>images;
-       private int roomNumbers;
-       private String description;
-       private String name;
-       private String contactNumber;
-       private double minPrice;
-       private double maxPrice;
-       private Time startTime;
-       private Time endTime;
-       private Boolean drinks;
-       private  String owner;
-       private Boolean outdoors;
-       private double ratingAverage;
-       private List<Rating> ratingList;
+    @NotNull
+    private int spaceId;
+
+    @NotNull
+    private String address;
+
+    @NotNull
+    private String district;
+
+    @NotNull
+    private int roomNumbers;
+
+    @NotNull
+    private String description;
+
+    @NotNull
+    private String name;
+
+    @NotNull
+    private String contactNumber;
+    @NotNull
+    private double minPrice;
+    @NotNull
+    private double maxPrice;
+    @NotNull
+    private Time startTime;
+    @NotNull
+    private Time endTime;
+    @NotNull
+    private Boolean drinks;
+    @NotNull
+    private  String owner;
+    @NotNull
+    private Boolean outdoors;
+    @NotNull
+    private double ratingAverage;
+
+    @NotNull
+    private List<ImageDTO> images;
+
+    @NotNull
+    private List<RatingDTO> ratings;
+
+
 
     public SpaceDTO() {
     }
 
-    public SpaceDTO(int spaceId, String address, String district, List<Image>images, int roomNumbers, String description, String name, String contactNumber, double minPrice, double maxPrice, Time startTime, Time endTime, Boolean drinks, String owner, Boolean outdoors, double ratingAverage, List<Rating> ratingList) {
+    public SpaceDTO(int spaceId, String address, String district, int roomNumbers, String description, String name, String contactNumber, double minPrice, double maxPrice, Time startTime, Time endTime, Boolean drinks, String owner, Boolean outdoors, double ratingAverage, List<ImageDTO> images, List<RatingDTO> ratings) {
         this.spaceId = spaceId;
         this.address = address;
         this.district = district;
-        this.images = images;
         this.roomNumbers = roomNumbers;
         this.description = description;
         this.name = name;
@@ -46,8 +70,8 @@ public class SpaceDTO {
         this.owner = owner;
         this.outdoors = outdoors;
         this.ratingAverage = ratingAverage;
-        this.ratingList = ratingList;
-
+        this.images = images;
+        this.ratings = ratings;
     }
 
     public int getSpaceId() {
@@ -72,14 +96,6 @@ public class SpaceDTO {
 
     public void setDistrict(String district) {
         this.district = district;
-    }
-
-    public List<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(List<Image> images) {
-        this.images = images;
     }
 
     public int getRoomNumbers() {
@@ -178,11 +194,19 @@ public class SpaceDTO {
         this.ratingAverage = ratingAverage;
     }
 
-    public List<Rating> getRatingList() {
-        return ratingList;
+    public List<ImageDTO> getImages() {
+        return images;
     }
 
-    public void setRatingList(List<Rating> ratingList) {
-        this.ratingList = ratingList;
+    public void setImages(List<ImageDTO> images) {
+        this.images = images;
+    }
+
+    public List<RatingDTO> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<RatingDTO> ratings) {
+        this.ratings = ratings;
     }
 }

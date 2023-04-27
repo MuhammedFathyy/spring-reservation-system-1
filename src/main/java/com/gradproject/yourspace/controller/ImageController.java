@@ -23,7 +23,7 @@ public class ImageController {
 
 
     @GetMapping()
-    public List<byte[]> getAllRatings(){
+    public List<byte[]> getAllImages(){
         return imageService.getImages();
     }
     @GetMapping("{imageId}")
