@@ -1,6 +1,5 @@
 package com.gradproject.yourspace.controller;
 
-import com.gradproject.yourspace.dto.ImageDTO;
 import com.gradproject.yourspace.service.ImageService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/images")
@@ -57,18 +55,17 @@ public class ImageController {
         imageService.uploadImage(file,SpaceId,roomId);
     }
 
-    @GetMapping("space/{spaceId}")
-    public List<ImageDTO> getImagesBySpaceId(@PathVariable int spaceId){
+    @GetMapping("space/{spaceId}/{index}")
+    public ResponseEntity<?> getImagesBySpaceId(@PathVariable int spaceId,@PathVariable int index){
 
-        return imageService.getImagesBySpaceId(spaceId)
-                .stream().map(image->modelMapper.map(image, ImageDTO.class))
-                .collect(Collectors.toList());
+        byte[] image= imageService.getImagesBySpaceId(spaceId,index).getImageData();
+        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/png")).body(image);
+
     }
 
-    @GetMapping("room/{roomId}")
-    public List<ImageDTO> getImagesByRoomId(@PathVariable int roomId){
-        return imageService.getImageByRoomId(roomId)
-                .stream().map(image->modelMapper.map(image, ImageDTO.class))
-                .collect(Collectors.toList());
+    @GetMapping("room/{roomId}/{index}")
+    public ResponseEntity<?> getImagesByRoomId(@PathVariable int roomId,@PathVariable int index){
+        byte[] image =imageService.getImageByRoomId(roomId,index).getImageData() ;
+        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/png")).body(image);
     }
 }

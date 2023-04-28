@@ -15,7 +15,7 @@ public interface ImageService {
     public byte[] getImageById(int id);
     public String deleteImageById(int id);
     public void updateImageById(int imageId, MultipartFile file) throws IOException;
-   public List<Image> getImagesBySpaceId(int spaceId);
+   public Image getImagesBySpaceId(int spaceId, int index);
 
-    public List<Image> getImageByRoomId(int spaceId);
+    public Image getImageByRoomId(int spaceId,int index);
 }

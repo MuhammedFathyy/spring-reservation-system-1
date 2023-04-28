@@ -146,13 +146,13 @@ public class ImageServiceImpl implements ImageService {
 
     @Transactional
     @Override
-    public List<Image> getImagesBySpaceId(int spaceId) {
-        return imageDAO.findImagesBySpaceId(spaceId);
+    public Image getImagesBySpaceId(int spaceId,int index) {
+        return imageDAO.findImagesBySpaceId(spaceId).get(index);
     }
 
     @Transactional
     @Override
-    public List<Image> getImageByRoomId(int roomId) {
-        return imageDAO.findImageByRoomId(roomId);
+    public Image getImageByRoomId(int roomId,int index) {
+        return imageDAO.findImageByRoomId(roomId).get(index);
     }
 }
