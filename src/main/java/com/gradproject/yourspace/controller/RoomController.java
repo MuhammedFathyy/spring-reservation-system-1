@@ -68,5 +68,19 @@ public class RoomController {
         return room.getBookings();
     }
 
+    @GetMapping ("getBySpace/{spaceId}")
+    public List<RoomDTO> getRoomBySpace (@PathVariable int spaceId) {
+        return roomService.getRoomBySpace(spaceId)
+                .stream()
+                .map(room -> modelMapper.map(room, RoomDTO.class))
+                .collect(Collectors.toList());
+    }
+    @GetMapping("getByBooking/{bookingId}")
+    public RoomDTO getRoomByBooking (@PathVariable int bookingId)
+    {
+        Room room = roomService.getRoomByBooking(bookingId);
+        return modelMapper.map(room, RoomDTO.class);
+    }
+
 
 }

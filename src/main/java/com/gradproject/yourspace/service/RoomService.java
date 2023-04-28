@@ -72,7 +72,17 @@ public class RoomService {
 
     }
 
+    @Transactional
+    public List<Room> getRoomBySpace (int spaceId)
+    {
+        return roomDAO.findRoomBySpaceId(spaceId);
+    }
 
+    @Transactional
+    public Room getRoomByBooking (int bookingId)
+    {
+        return roomDAO.findRoomByBooking(bookingId);
+    }
     public boolean isRoomAvailable(Integer roomId, LocalDate date, Time startTime,
                                    Time endTime) {
         roomDAO.findById(roomId).orElse(null);
