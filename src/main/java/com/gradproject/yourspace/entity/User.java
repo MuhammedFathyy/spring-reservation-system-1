@@ -49,9 +49,10 @@ public class User {
     @Column(name = "points")
     private int points;
 
-    @Column(name = "profile_picture")
-    private String picture;
 
+
+    @OneToOne(mappedBy = "user")
+    private Image image;
 
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -74,7 +75,7 @@ public class User {
     public User() {
     }
 
-    public User(String email, String firstName, String lastName, String password, String mobileNo, String address, Date birthDate, String bio, int points, String picture, List<Request> requests, List<Booking> bookings, List<Rating> ratings) {
+    public User(String email, String firstName, String lastName, String password, String mobileNo, String address, Date birthDate, String bio, int points, Image image, List<Request> requests, List<Booking> bookings, List<Rating> ratings) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -84,7 +85,7 @@ public class User {
         this.birthDate = birthDate;
         this.bio = bio;
         this.points = points;
-        this.picture = picture;
+        this.image = image;
         this.requests = requests;
         this.bookings = bookings;
         this.ratings = ratings;
@@ -171,12 +172,12 @@ public class User {
         this.points = points;
     }
 
-    public String getPicture() {
-        return picture;
+    public Image getImage() {
+        return image;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public List<Request> getRequests() {
@@ -216,7 +217,6 @@ public class User {
                 ", birthDate='" + birthDate + '\'' +
                 ", bio='" + bio + '\'' +
                 ", points=" + points +
-                ", picture='" + picture + '\'' +
                 ", requests=" + requests +
                 ", bookings=" + bookings +
                 '}';
@@ -238,5 +238,6 @@ public class User {
         }
         else ratings.add(rating);
     }
+
 
 }

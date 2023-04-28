@@ -3,9 +3,11 @@ package com.gradproject.yourspace.service;
 import com.gradproject.yourspace.dao.ImageDAO;
 import com.gradproject.yourspace.dao.RoomDAO;
 import com.gradproject.yourspace.dao.SpaceDAO;
+import com.gradproject.yourspace.dao.UserDAO;
 import com.gradproject.yourspace.entity.Image;
 import com.gradproject.yourspace.entity.Room;
 import com.gradproject.yourspace.entity.Space;
+import com.gradproject.yourspace.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,16 +26,17 @@ public class ImageServiceImpl implements ImageService {
     private ImageDAO imageDAO;
     private SpaceDAO spaceDAO;
     private RoomDAO roomDAO;
+    private UserDAO userDAO;
 
 
 
     @Autowired
-    public ImageServiceImpl(ImageDAO imageDAO, SpaceDAO spaceDAO, RoomDAO roomDAO) {
+    public ImageServiceImpl(ImageDAO imageDAO, SpaceDAO spaceDAO, RoomDAO roomDAO, UserDAO userDAO) {
         this.imageDAO = imageDAO;
         this.spaceDAO = spaceDAO;
         this.roomDAO = roomDAO;
+        this.userDAO = userDAO;
     }
-
 
 
     public static byte[] compressImage(byte[] data) {
@@ -77,7 +80,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     @Transactional
-    public void uploadImage(MultipartFile file,int SpaceId,int roomId) throws IOException {
+    public void uploadImage(MultipartFile file,int SpaceId,int roomId,int userId) throws IOException {
         System.out.println(file);
         Image image= new Image();
         image.setType(file.getContentType());
@@ -85,13 +88,16 @@ public class ImageServiceImpl implements ImageService {
        image.setImageData((file.getBytes()));
        Space space = spaceDAO.findSpaceBySpaceId(SpaceId);
        Room room=roomDAO.getRoomByRoomId(roomId);
+       User user= userDAO.findUserByUserId(userId);
        if(space!=null){
            image.setSpace(space);
        }
        if(room!=null){
            image.setRoom(room);
        }
-//        image.setImageId(0);
+       if(user!=null){
+           image.setUser(user);
+       }
         imageDAO.save(image);
 
     }
@@ -154,5 +160,12 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public Image getImageByRoomId(int roomId,int index) {
         return imageDAO.findImageByRoomId(roomId).get(index);
+    }
+
+
+    @Transactional
+    @Override
+    public Image getImageByUserId(int userId) {
+        return imageDAO.findImagesByUserId(userId);
     }
 }

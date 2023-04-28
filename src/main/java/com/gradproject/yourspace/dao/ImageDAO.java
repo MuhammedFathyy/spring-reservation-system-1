@@ -21,4 +21,9 @@ public interface ImageDAO extends JpaRepository<Image,Integer> {
             value = "select * from images i where i.room_id = :id ",
             nativeQuery = true)
     public List<Image> findImageByRoomId(int id);
+
+    @Query(
+            value = "select * from images i where i.user_id = :id ",
+            nativeQuery = true)
+    public Image findImagesByUserId(int id);
 }

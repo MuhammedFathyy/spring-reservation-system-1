@@ -51,8 +51,8 @@ public class ImageController {
     }
 
     @PostMapping()
-    public void addImage(@RequestParam("image") MultipartFile file,@RequestParam("spaceId") int SpaceId,@RequestParam("roomId")int roomId) throws IOException {
-        imageService.uploadImage(file,SpaceId,roomId);
+    public void addImage(@RequestParam("image") MultipartFile file,@RequestParam("spaceId") int SpaceId,@RequestParam("roomId")int roomId,@RequestParam("userId") int userId) throws IOException {
+        imageService.uploadImage(file,SpaceId,roomId,userId);
     }
 
     @GetMapping("space/{spaceId}/{index}")
@@ -66,6 +66,12 @@ public class ImageController {
     @GetMapping("room/{roomId}/{index}")
     public ResponseEntity<?> getImagesByRoomId(@PathVariable int roomId,@PathVariable int index){
         byte[] image =imageService.getImageByRoomId(roomId,index).getImageData() ;
+        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/png")).body(image);
+    }
+
+    @GetMapping("user/{userId}")
+    public ResponseEntity<?> getImageByUserId(@PathVariable int userId){
+        byte[] image =imageService.getImageByUserId(userId).getImageData() ;
         return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/png")).body(image);
     }
 }

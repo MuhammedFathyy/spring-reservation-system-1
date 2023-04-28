@@ -8,12 +8,13 @@ import javax.persistence.*;
 public class Image {
 
 
-    public Image(byte[] imageData, String type, String name, Space space, Room room) {
+    public Image(byte[] imageData, String type, String name, Space space, Room room, User user) {
         this.imageData = imageData;
         this.type = type;
         this.name = name;
         this.space = space;
         this.room = room;
+        this.user = user;
     }
 
     public Image() {
@@ -38,6 +39,11 @@ public class Image {
     @ManyToOne
     @JoinColumn (name="room_id")
     private Room room;
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private User user;
 
     public int getImageId() {
         return imageId;
@@ -89,5 +95,13 @@ public class Image {
 
     public void setRoom(Room room) {
         this.room = room;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

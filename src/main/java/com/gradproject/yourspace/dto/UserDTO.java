@@ -37,8 +37,6 @@ public class UserDTO {
     @NotNull
     private int points;
 
-    @NotNull
-    private String picture;
 
     public UserDTO() {
     }
@@ -117,11 +115,5 @@ public class UserDTO {
         this.points = points;
     }
 
-    public String getPicture() {
-        return picture;
-    }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
 }
