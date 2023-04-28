@@ -30,7 +30,7 @@ public class UserController {
         List<User> users = userService.getUsers();
         return users
                 .stream()
-                .map(user -> modelMapper.map(users , UserDTO.class))
+                .map(user -> modelMapper.map(user , UserDTO.class))
                 .collect(Collectors.toList());
     }
 
