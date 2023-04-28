@@ -1,7 +1,6 @@
 package com.gradproject.yourspace.dto;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 public class AllSpacesDTO {
     @NotNull
@@ -14,8 +13,6 @@ public class AllSpacesDTO {
     @NotNull
     private int spaceId;
 
-    @NotNull
-     private List<ImageDTO> images;
 
 
 
@@ -58,11 +55,4 @@ public class AllSpacesDTO {
         this.spaceId = spaceId;
     }
 
-    public List<ImageDTO> getImages() {
-        return images;
-    }
-
-    public void setImages(List<ImageDTO> images) {
-        this.images = images;
-    }
 }

@@ -44,9 +44,6 @@ public class SpaceDTO {
     private double ratingAverage;
 
     @NotNull
-    private List<ImageDTO> images;
-
-    @NotNull
     private List<RatingDTO> ratings;
 
 
@@ -176,13 +173,6 @@ public class SpaceDTO {
         this.ratingAverage = ratingAverage;
     }
 
-    public List<ImageDTO> getImages() {
-        return images;
-    }
-
-    public void setImages(List<ImageDTO> images) {
-        this.images = images;
-    }
 
     public List<RatingDTO> getRatings() {
         return ratings;
