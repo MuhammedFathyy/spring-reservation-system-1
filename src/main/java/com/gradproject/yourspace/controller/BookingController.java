@@ -37,6 +37,12 @@ public class BookingController {
         return modelMapper.map(booking, BookingDTO.class);
     }
 
+    @GetMapping("/check/{bookingId}")
+    public BookingDTO checkBooking(@PathVariable int bookingId){
+        Booking booking =bookingService.findById(bookingId);
+        return modelMapper.map(booking,BookingDTO.class);
+    }
+
     @PostMapping()
     public ResponseEntity<String> saveBooking(@RequestBody @Valid BookingDTO bookingDTO) {
         Booking booking = modelMapper.map(bookingDTO, Booking.class);

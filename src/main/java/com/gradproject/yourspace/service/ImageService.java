@@ -20,4 +20,13 @@ public interface ImageService {
     public Image getImageByRoomId(int spaceId,int index);
 
    public  Image getImageByUserId(int userId);
+
+
+    public void deleteImageByRoomId(int roomId);
+
+   public void deleteImageByUsrId(int userId);
+
+   public void deleteImageBySpaceId(int spaceId);
+
+
 }

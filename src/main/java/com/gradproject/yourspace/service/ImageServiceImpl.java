@@ -149,7 +149,6 @@ public class ImageServiceImpl implements ImageService {
 
     }
 
-
     @Transactional
     @Override
     public Image getImagesBySpaceId(int spaceId,int index) {
@@ -167,5 +166,27 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public Image getImageByUserId(int userId) {
         return imageDAO.findImagesByUserId(userId);
+    }
+
+
+
+    @Transactional
+    @Override
+    public void deleteImageByRoomId(int roomId) {
+        imageDAO.deleteImageByRoomId(roomId);
+
+    }
+
+    @Override
+    @Transactional
+    public void deleteImageByUsrId(int userId) {
+
+        imageDAO.deleteImageByuserId(userId);
+    }
+
+    @Override
+    @Transactional
+    public void deleteImageBySpaceId(int spaceId) {
+        imageDAO.deleteImageBySpaceId(spaceId);
     }
 }

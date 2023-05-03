@@ -74,7 +74,7 @@ public class BookingServiceImpl implements BookingService {
         String email= user1.getEmail();
 
         //generate Qr Code
-        String qrCode = qrCodeHandler.getQRCode(booking);
+        String qrCode = qrCodeHandler.getQRCodeForBooking(booking);
         //send mail
         try {
             sendEmailService.sendEmail(email, "Test",

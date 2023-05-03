@@ -51,7 +51,8 @@ public class User {
 
 
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user",cascade  = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Image image;
 
 
