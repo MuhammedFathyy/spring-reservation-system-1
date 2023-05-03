@@ -39,16 +39,26 @@ public class ImageController {
                 .body(image);
     }
 
-
-    @DeleteMapping({"{imageId}"})
-    public void deleteImage(@PathVariable int imageId){
-        imageService.deleteImageById(imageId);
-    }
-
     @PatchMapping({"{imageId}"})
     public void updateRating(@PathVariable int imageId, @RequestParam("image") MultipartFile file) throws IOException {
         imageService.updateImageById(imageId,file);
     }
+    @DeleteMapping({"{userId}"})
+    public void deleteImageByUser(@PathVariable int userId){
+        imageService.deleteImageByUsrId(userId);
+    }
+
+
+    @DeleteMapping({"{spaceId}"})
+    public void deleteImageBySpace(@PathVariable int spaceId){
+        imageService.deleteImageBySpaceId(spaceId);
+    }
+
+    @DeleteMapping({"{roomId}"})
+    public void deleteImageByRoom(@PathVariable int roomId){
+        imageService.deleteImageByRoomId(roomId);
+    }
+
 
     @PostMapping()
     public void addImage(@RequestParam("image") MultipartFile file,@RequestParam("spaceId") int SpaceId,@RequestParam("roomId")int roomId,@RequestParam("userId") int userId) throws IOException {
