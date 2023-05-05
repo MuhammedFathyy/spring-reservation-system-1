@@ -61,9 +61,8 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public void updateRequestPartially(int id, HashMap<String, Object> fields) {
-        Request request = requestDAO.findById(id).orElse(null);
-        if (request == null)
-            throw new RuntimeException("no request found with id " + id);
+        Request request = requestDAO.findById(id)
+                .orElseThrow(() -> new RuntimeException("no request found with id " + id));
         fields.forEach((key, value) -> {
             Field field = ReflectionUtils.findField(Request.class, key);
             field.setAccessible(true);
