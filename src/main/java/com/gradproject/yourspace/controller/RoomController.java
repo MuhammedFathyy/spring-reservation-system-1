@@ -62,11 +62,6 @@ public class RoomController {
     public void updateRoomPartially(@PathVariable int roomId, @RequestBody HashMap<String, Object> fields) {
         roomService.updateRoomByField(roomId, fields);
     }
-    @GetMapping("roomBookings/{roomId}")
-    public List<Booking> getBookings(@PathVariable int roomId) {
-        Room room = roomService.getRoom(roomId);
-        return room.getBookings();
-    }
 
     @GetMapping ("getBySpace/{spaceId}")
     public List<RoomDTO> getRoomBySpace (@PathVariable int spaceId) {
