@@ -83,7 +83,7 @@ public class BookingController {
     @GetMapping("roomBookings/{roomId}")
     public List<BookingDTO> getBookingsByDateAndRoom(@PathVariable int roomId,
                                                      @RequestParam(value = "date")
-                                                     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                     @DateTimeFormat(pattern = "dd-MM-yyyy")
                                                      @Valid LocalDate date) {
         return bookingService.getBookingsByDateAndRoom(roomId, date)
                 .stream()
