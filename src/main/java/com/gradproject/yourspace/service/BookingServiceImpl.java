@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -148,6 +149,12 @@ public class BookingServiceImpl implements BookingService {
     @Transactional
     public List<Booking> getBookingsHistory(int userId) {
         return bookingDAO.findBookingsByUserSortedByDate(userId);
+    }
+
+    @Override
+    @Transactional
+    public List<Booking> getBookingsByDateAndRoom(int roomId, LocalDate date) {
+        return bookingDAO.findBookingsByRoomAndDate(roomId, date);
     }
 
 

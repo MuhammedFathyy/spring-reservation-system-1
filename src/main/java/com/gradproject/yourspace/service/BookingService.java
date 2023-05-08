@@ -3,6 +3,8 @@ package com.gradproject.yourspace.service;
 import com.gradproject.yourspace.entity.Booking;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,5 +23,5 @@ public interface BookingService {
 
     List<Booking> getBookingsHistory(int userId);
 
-
+    List<Booking> getBookingsByDateAndRoom(int roomId, LocalDate date);
 }
