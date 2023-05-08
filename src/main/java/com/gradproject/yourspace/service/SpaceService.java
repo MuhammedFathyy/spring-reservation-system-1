@@ -12,4 +12,6 @@ public interface SpaceService {
     public String deleteSpaceById(int id);
    public void updateSpaceByFields(int spaceId, Map<String, Object> fields);
    public List<Space> getPageableSpace(int pageNo, int pageSize);
+
+   public  Space getSpaceByRoomId(int roomId);
 }

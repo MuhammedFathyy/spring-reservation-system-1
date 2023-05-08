@@ -96,6 +96,9 @@ public class SpaceServiceImpl implements SpaceService{
 
     }
 
-
-
+    @Override
+    @Transactional
+    public Space getSpaceByRoomId(int roomId) {
+        return spaceDAO.findSpaceByRoomId(roomId);
+    }
 }

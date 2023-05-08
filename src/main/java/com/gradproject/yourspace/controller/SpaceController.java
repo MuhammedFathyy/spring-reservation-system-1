@@ -64,6 +64,12 @@ public class SpaceController {
 
     }
 
+    @GetMapping("room/{roomId}")
+    public SpaceDTO getSpaceByRoom(@PathVariable int roomId){
+        Space space = spaceService.getSpaceByRoomId(roomId);
+        return modelMapper.map(space,SpaceDTO.class);
+    }
+
     @PostMapping()
     public void addSpace(@RequestBody Space space){
         spaceService.saveSpace(space);
