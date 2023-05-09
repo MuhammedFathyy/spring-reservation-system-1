@@ -7,7 +7,7 @@ public class RequestDTO {
     @NotNull
     private String name;
     @NotNull
-    private String status = "pending";
+    private String status = "Pending";
     @NotNull
     private String address;
     @NotNull
