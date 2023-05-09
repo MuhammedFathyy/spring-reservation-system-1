@@ -1,7 +1,6 @@
 package com.gradproject.yourspace.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.micrometer.core.annotation.Counted;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -46,6 +45,10 @@ public class Booking {
     @JoinColumn(name = "user_id")
     @NotNull
     private User user;
+
+    @Column(name = "space_name")
+    @NotNull
+    private String spaceName;
 
     public Booking() {
     }
@@ -111,6 +114,14 @@ public class Booking {
 
     public void setQrScan(boolean qrScan) {
         this.qrScan = qrScan;
+    }
+
+    public String getSpaceName() {
+        return spaceName;
+    }
+
+    public void setSpaceName(String spaceName) {
+        this.spaceName = spaceName;
     }
 
     @Override

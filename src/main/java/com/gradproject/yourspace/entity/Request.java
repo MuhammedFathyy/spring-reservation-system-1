@@ -18,7 +18,7 @@ public class Request {
 
     @Column(name = "status")
     @NotNull
-    private String status = "pending";
+    private String status = "Pending";
 
     @Column(name = "address")
     @NotNull

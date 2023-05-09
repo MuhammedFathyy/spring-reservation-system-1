@@ -22,6 +22,28 @@ public class BookingDTO {
     @NotNull
     private Integer userId;
 
+    @NotNull
+    private String spaceName;
+
+    @NotNull
+    private boolean qrScan;
+
+    public boolean isQrScan() {
+        return qrScan;
+    }
+
+    public void setQrScan(boolean qrScan) {
+        this.qrScan = qrScan;
+    }
+
+    public String getSpaceName() {
+        return spaceName;
+    }
+
+    public void setSpaceName(String spaceName) {
+        this.spaceName = spaceName;
+    }
+
     public int getId() {
         return id;
     }
