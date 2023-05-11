@@ -49,6 +49,9 @@ public class User {
     @Column(name = "points")
     private int points;
 
+    @Column(name="is_present")
+    private boolean isPresent;
+
 
 
     @OneToOne(mappedBy = "user",cascade  = CascadeType.ALL)
@@ -203,6 +206,13 @@ public class User {
 
     public void setRatings(List<Rating> ratings) {
         this.ratings = ratings;
+    }
+
+    public void setPresent(User user, boolean present) {
+        isPresent = present;
+    }
+    public  boolean getPresent(){
+        return isPresent;
     }
 
     @Override

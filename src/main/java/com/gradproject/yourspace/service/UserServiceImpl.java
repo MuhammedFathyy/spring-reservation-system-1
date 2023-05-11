@@ -98,4 +98,13 @@ public class UserServiceImpl implements UserService{
                 "id " + userId.intValue());
         return user.getBookings();
     }
+
+    @Override
+    @Transactional
+    public User getUserByEmail(String email){
+        return usersDAO.findUserByEmail(email);
+    }
+
+
+
 }
