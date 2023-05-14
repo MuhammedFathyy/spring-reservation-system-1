@@ -1,15 +1,10 @@
 package com.gradproject.yourspace.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
-
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name="chatChannel")
@@ -30,7 +25,6 @@ public class ChatChannel {
     private User userTwo;
 
     @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private List<ChatMessage> messages;
 

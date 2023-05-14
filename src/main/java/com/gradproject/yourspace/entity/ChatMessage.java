@@ -24,8 +24,6 @@ public class ChatMessage {
     @ManyToOne
     @JoinColumn(name = "channel_id")
     private ChatChannel channel;
-
-    @NotNull
     private Date timeSent;
 
     @NotNull
