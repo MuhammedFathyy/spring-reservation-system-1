@@ -11,7 +11,7 @@ import java.util.Date;
 public class ChatMessage {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private int id;
 
     @OneToOne
     @JoinColumn(name = "authorUserId")
@@ -21,19 +21,26 @@ public class ChatMessage {
     @JoinColumn(name = "recipientUserId")
     private User recipientUser;
 
+    @ManyToOne
+    @JoinColumn(name = "channel_id")
+    private ChatChannel channel;
+
     @NotNull
     private Date timeSent;
 
     @NotNull
     private String contents;
 
+
+
     public ChatMessage() {}
 
-    public ChatMessage(User authorUser, User recipientUser, String contents) {
+    public ChatMessage(User authorUser, User recipientUser, ChatChannel channel, Date timeSent, String contents) {
         this.authorUser = authorUser;
         this.recipientUser = recipientUser;
+        this.channel = channel;
+        this.timeSent = timeSent;
         this.contents = contents;
-        this.timeSent = new Date();
     }
 
     public long getId() {
@@ -58,6 +65,26 @@ public class ChatMessage {
 
     public Date getTimeSent() {
         return this.timeSent;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public ChatChannel getChannel() {
+        return channel;
+    }
+
+    public void setChannel(ChatChannel channel) {
+        this.channel = channel;
+    }
+
+    public void setTimeSent(Date timeSent) {
+        this.timeSent = timeSent;
+    }
+
+    public void setContents(String contents) {
+        this.contents = contents;
     }
 
     public String getContents() {

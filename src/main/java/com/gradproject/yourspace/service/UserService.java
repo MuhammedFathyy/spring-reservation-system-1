@@ -26,5 +26,4 @@ public interface UserService {
 
 
 
-    void notifyUser(User recipientUser, NotificationDTO chatMessageNotification);
 }

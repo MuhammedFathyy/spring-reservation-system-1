@@ -1,9 +1,14 @@
 package com.gradproject.yourspace.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -12,7 +17,9 @@ public class ChatChannel {
 
     @Id
     @NotNull
-    private String uuid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="channel_id")
+    private int ChannelId;
 
     @OneToOne
     @JoinColumn(name = "userIdOne")
@@ -22,13 +29,24 @@ public class ChatChannel {
     @JoinColumn(name = "userIdTwo")
     private User userTwo;
 
-    public ChatChannel(User userOne, User userTwo) {
-        this.uuid = UUID.randomUUID().toString();
+    @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private List<ChatMessage> messages;
+
+    public ChatChannel(User userOne, User userTwo, List<ChatMessage> messages) {
         this.userOne = userOne;
         this.userTwo = userTwo;
+        this.messages = messages;
     }
 
+
     public ChatChannel() {}
+
+    public ChatChannel(User sender, User reciever) {
+        this.userOne = sender;
+        this.userTwo = reciever;
+    }
 
     public void setUserTwo(User user) {
         this.userTwo = user;
@@ -46,7 +64,21 @@ public class ChatChannel {
         return this.userTwo;
     }
 
-    public String getUuid() {
-        return this.uuid;
+    public List<ChatMessage> getMessages() {
+        return messages;
     }
+
+    public void setMessages(List<ChatMessage> messages) {
+        this.messages = messages;
+    }
+
+    public int getChannelId() {
+        return ChannelId;
+    }
+
+    public void setChannelId(int channelId) {
+        ChannelId = channelId;
+    }
+
+
 }
