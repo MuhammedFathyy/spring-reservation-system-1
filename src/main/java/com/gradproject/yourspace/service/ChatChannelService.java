@@ -26,6 +26,7 @@ public class ChatChannelService {
     public ChatChannel getChannel(ChatMessage message) {
         User sender = message.getAuthorUser();
         User receiver = message.getRecipientUser();
+        //need to find the sender and reciever with id to get firstname of both
         Optional<ChatChannel> optionalChatChannel =chatChannelDAO.getChannel(sender.getUserId(), receiver.getUserId());
 
 
@@ -34,7 +35,6 @@ public class ChatChannelService {
             ChatChannel newChannel = new ChatChannel();
             newChannel.setUserOne(message.getAuthorUser());
             newChannel.setUserTwo(message.getRecipientUser());
-            saveChannel(newChannel);
             saveChannel(newChannel);
             return newChannel;
 
