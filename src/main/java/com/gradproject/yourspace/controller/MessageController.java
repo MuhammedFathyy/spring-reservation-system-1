@@ -27,7 +27,7 @@ public class MessageController {
 
 //    @MessageMapping("/message")
 //    @SendTo("/topic/messages")
-//    public ChatMessage getMessage(final ChatMessage message) throws InterruptedException {
+//    public void getMessage(final ChatMessage message) throws InterruptedException {
 //        Thread.sleep(1000);
 //        notificationService.sendGlobalNotification();
 //        return new ChatMessage((message);
@@ -49,7 +49,7 @@ public class MessageController {
 
 
     @PostMapping("/private")
-        public ChatMessage getPrivateMessage(@RequestBody ChatMessage message )
+        public void getPrivateMessage(@RequestBody ChatMessage message )
     {
 //        Thread.sleep(1000);
         //notificationService.sendPrivateNotification(principal.getName());
@@ -58,6 +58,6 @@ public class MessageController {
         ChatChannel channel=chatChannelService.getChannel(message);
         message.setChannel(channel);
         chatMessageService.addMessage(message);
-        return message;
+
     }
 }

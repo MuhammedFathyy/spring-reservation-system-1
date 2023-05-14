@@ -18,7 +18,6 @@ public class ChatChannelService {
 
     @Transactional
     public void saveChannel(ChatChannel channel) {
-        channel.setChannelId(0);
         chatChannelDAO.save(channel);
     }
 
@@ -26,20 +25,22 @@ public class ChatChannelService {
     @Transactional
     public ChatChannel getChannel(ChatMessage message) {
         User sender = message.getAuthorUser();
-        User reciever = message.getRecipientUser();
-        Optional<ChatChannel> optionalChatChannel = chatChannelDAO.getChannel(sender.getUserId(), reciever.getUserId());
+        User receiver = message.getRecipientUser();
+        Optional<ChatChannel> optionalChatChannel =chatChannelDAO.getChannel(sender.getUserId(), receiver.getUserId());
 
-        if(optionalChatChannel.isPresent()) {
-            return optionalChatChannel.get();
-        }
-        else{
-//            ChatChannel newChannel = optionalChatChannel.get();
-            ChatChannel newChannel= new ChatChannel();
+
+        if (!optionalChatChannel.isPresent()) {
+
+            ChatChannel newChannel = new ChatChannel();
             newChannel.setUserOne(message.getAuthorUser());
             newChannel.setUserTwo(message.getRecipientUser());
             saveChannel(newChannel);
+            saveChannel(newChannel);
+            return newChannel;
 
-            return  newChannel;
+        } else {
+
+            return optionalChatChannel.get();
         }
 
 

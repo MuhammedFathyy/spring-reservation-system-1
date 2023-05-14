@@ -17,8 +17,7 @@ public interface ChatChannelDAO  extends JpaRepository<ChatChannel, Integer> {
             + "  WHERE"
             + "    c.userOne.userId IN (:senderId, :recieverId) "
             + "  AND"
-            + "    c.userTwo.userId IN (:senderId, :recieverId)"
-    ,nativeQuery = true)
+            + "    c.userTwo.userId IN (:senderId, :recieverId)")
     public Optional<ChatChannel>getChannel(int senderId, int recieverId);
 
 

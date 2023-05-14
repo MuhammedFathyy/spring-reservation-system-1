@@ -17,9 +17,9 @@ public class ChatMessageService {
     }
 
     @Transactional
-    public ChatMessage addMessage(ChatMessage message) {
+    public void addMessage(ChatMessage message) {
         message.setId(0);
         chatMessageDAO.save(message);
-        return message;
+
     }
 }
