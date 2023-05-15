@@ -1,7 +1,5 @@
 package com.gradproject.yourspace.service;
 
-import com.gradproject.yourspace.dto.NotificationDTO;
-import com.gradproject.yourspace.dto.UserDTO;
 import com.gradproject.yourspace.entity.Booking;
 import com.gradproject.yourspace.entity.User;
 

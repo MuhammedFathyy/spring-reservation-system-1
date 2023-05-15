@@ -7,6 +7,10 @@ import com.gradproject.yourspace.entity.User;
 
 import com.gradproject.yourspace.exception.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
@@ -22,13 +26,16 @@ import java.util.List;
 
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserDAO usersDAO;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserDAO usersDAO) {
+    public UserServiceImpl(UserDAO usersDAO, PasswordEncoder passwordEncoder) {
         this.usersDAO = usersDAO;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
@@ -47,6 +54,8 @@ public class UserServiceImpl implements UserService{
     @Override
     public void saveUser(User user) {
         user.setUserId(0);
+        String password= passwordEncoder.encode(user.getPassword());
+        user.setPassword(password);
         usersDAO.save(user);
     }
 
@@ -105,6 +114,15 @@ public class UserServiceImpl implements UserService{
         return usersDAO.findUserByEmail(email);
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user= usersDAO.findByUsername(username).orElseThrow(()->new UsernameNotFoundException(String.format("Username %s not found",username)));
+        user.setAccountNonExpired(true);
+        user.setCredentialsNonExpired(true);
+        user.setAccountNonLocked(true);
+        user.setEnabled(true);
 
-
+        usersDAO.save(user);
+        return user;
+    }
 }

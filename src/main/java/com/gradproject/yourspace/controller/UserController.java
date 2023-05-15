@@ -43,9 +43,8 @@ public class UserController {
 
 
     @PostMapping()
-    public void saveUser(@RequestBody UserDTO userDTO)
+    public void saveUser(@RequestBody User user)
     {
-        User user = modelMapper.map(userDTO , User.class);
         userService.saveUser(user);
     }
 

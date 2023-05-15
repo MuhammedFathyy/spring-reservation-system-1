@@ -5,16 +5,19 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "user" , indexes = @Index(columnList = "user_id"))
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -23,6 +26,10 @@ public class User {
     @Column(name = "email",unique = true)
     @NotNull
     private String email;
+
+    @Column(name="username",unique = true)
+    @NotNull
+    private  String username;
 
     @Column(name = "first_name")
     private String firstName;
@@ -49,9 +56,6 @@ public class User {
     @Column(name = "points")
     private int points;
 
-    @Column(name="is_present")
-    private boolean isPresent;
-
 
 
     @OneToOne(mappedBy = "user",cascade  = CascadeType.ALL)
@@ -75,12 +79,19 @@ public class User {
     @JsonIgnore
     private List<Rating> ratings;
 
+    @ElementCollection
+    private  List< GrantedAuthority> grantedAuthorities;
+    private  boolean isAccountNonExpired;
+    private  boolean isAccountNonLocked;
+    private  boolean isCredentialsNonExpired;
+    private  boolean isEnabled;
 
     public User() {
     }
 
-    public User(String email, String firstName, String lastName, String password, String mobileNo, String address, Date birthDate, String bio, int points, Image image, List<Request> requests, List<Booking> bookings, List<Rating> ratings) {
+    public User(String email, String username, String firstName, String lastName, String password, String mobileNo, String address, Date birthDate, String bio, int points, Image image, List<Request> requests, List<Booking> bookings, List<Rating> ratings, List< GrantedAuthority> grantedAuthorities, boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired, boolean isEnabled) {
         this.email = email;
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
@@ -93,7 +104,13 @@ public class User {
         this.requests = requests;
         this.bookings = bookings;
         this.ratings = ratings;
+        this.grantedAuthorities = grantedAuthorities;
+        this.isAccountNonExpired = isAccountNonExpired;
+        this.isAccountNonLocked = isAccountNonLocked;
+        this.isCredentialsNonExpired = isCredentialsNonExpired;
+        this.isEnabled = isEnabled;
     }
+
 
     public int getUserId() {
         return userId;
@@ -127,9 +144,6 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
     public void setPassword(String password) {
         this.password = password;
@@ -208,11 +222,33 @@ public class User {
         this.ratings = ratings;
     }
 
-    public void setPresent(User user, boolean present) {
-        isPresent = present;
+
+    public void setUsername(String username) {
+        this.username = username;
     }
-    public  boolean getPresent(){
-        return isPresent;
+
+    public List<GrantedAuthority> getGrantedAuthorities() {
+        return grantedAuthorities;
+    }
+
+    public void setGrantedAuthorities(List<GrantedAuthority> grantedAuthorities) {
+        this.grantedAuthorities = grantedAuthorities;
+    }
+
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        isAccountNonExpired = accountNonExpired;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        isAccountNonLocked = accountNonLocked;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        isCredentialsNonExpired = credentialsNonExpired;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
     }
 
     @Override
@@ -248,6 +284,42 @@ public class User {
             this.ratings=new ArrayList<>();
         }
         else ratings.add(rating);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return grantedAuthorities;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return isAccountNonExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return isAccountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return isCredentialsNonExpired;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    @Override
+    public String getPassword(){
+        return this.password;
+
     }
 
 
